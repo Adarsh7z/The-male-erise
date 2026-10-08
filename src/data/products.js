@@ -1,10 +1,20 @@
-import kurta1 from '../assets/kurtas/kurta-1-black-embroidered.jpg';
-import kurta2 from '../assets/kurtas/kurta-2-grey-silk.jpg';
-import kurta3 from '../assets/kurtas/kurta-3-yellow-festive.jpg';
-import kurta4 from '../assets/kurtas/kurta-4-navy-silk.jpg';
-import kurta5 from '../assets/kurtas/kurta-5-ivory-resham.jpg';
-import kurta6 from '../assets/kurtas/kurta-6-black-heritage.jpg';
+// Office Casuals Local High-Resolution Photography Assets (1024x1024, optimized < 150KB)
+import oc1 from '../assets/office/oc-1-cuban-linen.jpg';
+import oc2 from '../assets/office/oc-2-pleated-trouser.jpg';
+import oc3 from '../assets/office/oc-3-oxford-shirt.jpg';
+import oc4 from '../assets/office/oc-4-knit-polo.jpg';
+import oc5 from '../assets/office/oc-5-chino-trouser.jpg';
+import oc6 from '../assets/office/oc-6-merino-knit.jpg';
 
+// Kurta-Pyjama Local High-Resolution Photography Assets (1024x1024, optimized < 150KB)
+import kurta1 from '../assets/kurtas/kurta-1-ivory-silk.jpg';
+import kurta2 from '../assets/kurtas/kurta-2-navy-embroidered.jpg';
+import kurta3 from '../assets/kurtas/kurta-3-yellow-festive.jpg';
+import kurta4 from '../assets/kurtas/kurta-4-grey-silk.jpg';
+import kurta5 from '../assets/kurtas/kurta-5-lilac-jacket.jpg';
+import kurta6 from '../assets/kurtas/kurta-6-white-linen.jpg';
+
+// Blazers Local High-Resolution Photography Assets (1024x1024, optimized < 150KB)
 import blazer1 from '../assets/blazers/blazer-1-navy-notch.jpg';
 import blazer2 from '../assets/blazers/blazer-2-charcoal-tweed.jpg';
 import blazer3 from '../assets/blazers/blazer-3-velvet-peak.jpg';
@@ -13,7 +23,9 @@ import blazer5 from '../assets/blazers/blazer-5-savile-double-breasted.jpg';
 import blazer6 from '../assets/blazers/blazer-6-wine-jacquard.jpg';
 
 export const PRODUCTS = [
-  // --- SECTION 1: Office casuals (Menswear Only) ---
+  // =========================================================================
+  // SECTION 1: Office casuals (Exactly 6 Men's Products, 4 Garment Types)
+  // =========================================================================
   {
     id: "moe-oc-01",
     name: "Erise Cuban Collar Pure Linen Shirt",
@@ -27,12 +39,9 @@ export const PRODUCTS = [
     reviewsCount: 42,
     isFeatured: true,
     badge: "Bestseller",
-    images: [
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Breathable French flax linen with a structured Cuban open collar and mother-of-pearl buttons. Tailored for effortless boardroom-to-evening transitions.",
-    fabric: "100% French Linen",
+    images: [oc1],
+    description: "Breathable sand linen shirt crafted with a structured Cuban open revere collar and mother-of-pearl buttons. Tailored for effortless boardroom-to-evening transitions.",
+    fabric: "100% French Flax Linen",
     care: "Gentle cold machine wash, line dry in shade."
   },
   {
@@ -48,10 +57,7 @@ export const PRODUCTS = [
     reviewsCount: 38,
     isFeatured: true,
     badge: "Popular",
-    images: [
-      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&w=800&q=80"
-    ],
+    images: [oc2],
     description: "High-waisted sartorial silhouette with sharp double front pleats and side tab adjusters. Fluid drape with comfort stretch.",
     fabric: "Poly-Viscose Wool Blend with 2% Elastane",
     care: "Dry clean or gentle steam iron."
@@ -69,12 +75,9 @@ export const PRODUCTS = [
     reviewsCount: 51,
     isFeatured: true,
     badge: "Workwear",
-    images: [
-      "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Crisp 100-ply long staple American Supima cotton oxford weave with tailored button-down collar and reinforced French seams.",
-    fabric: "100% Supima Long Staple Cotton",
+    images: [oc3],
+    description: "Crisp sky blue pin-striped executive dress shirt woven from 100% long-staple Supima cotton. Classic spread collar and barrel cuffs for daily business rigor.",
+    fabric: "100% Long-Staple Supima Cotton",
     care: "Machine wash warm, warm iron."
   },
   {
@@ -85,45 +88,77 @@ export const PRODUCTS = [
     price: 1599,
     originalPrice: 3499,
     discount: "54% OFF",
-    sizes: ["S", "M", "L", "XL"],
-    rating: 4.7,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    rating: 4.8,
     reviewsCount: 29,
     isFeatured: false,
     badge: "Smart Casual",
-    images: [
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80"
-    ],
-    description: "Fine-gauge knitted polo with ribbed hem and cuffs. Luxurious soft handfeel perfect under blazers or worn solo.",
+    images: [oc4],
+    description: "Fine-gauge knitted navy polo with structured collar, 3-button placket, and ribbed cuffs. Luxurious soft handfeel perfect under blazers or worn solo.",
     fabric: "Mercerized Combed Cotton Knit",
     care: "Dry flat, cool iron inside out."
   },
+  {
+    id: "moe-oc-05",
+    name: "Erise Stretch Cotton Chino Trouser",
+    category: "Office casuals",
+    categorySlug: "office-casuals",
+    price: 2099,
+    originalPrice: 4699,
+    discount: "55% OFF",
+    sizes: ["30", "32", "34", "36", "38"],
+    rating: 4.9,
+    reviewsCount: 33,
+    isFeatured: false,
+    badge: "Atelier Essential",
+    images: [oc5],
+    description: "Tailored slim-fit khaki chinos cut from breathable stretch cotton twill. Flat front design with side slant pockets and piped back pockets.",
+    fabric: "98% Combed Cotton Twill, 2% Elastane",
+    care: "Machine wash cold with like colors, tumble dry low."
+  },
+  {
+    id: "moe-oc-06",
+    name: "Erise Merino Blend Crew Neck Knit",
+    category: "Office casuals",
+    categorySlug: "office-casuals",
+    price: 2299,
+    originalPrice: 4999,
+    discount: "54% OFF",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    rating: 4.9,
+    reviewsCount: 26,
+    isFeatured: true,
+    badge: "Winter Warmth",
+    images: [oc6],
+    description: "Fine-gauge burgundy knit sweater tailored in an extrafine merino wool blend. Ribbed neck, hem, and cuffs for sophisticated cool-weather office layering.",
+    fabric: "70% Extrafine Merino Wool, 30% Cotton",
+    care: "Hand wash cold or gentle dry clean, lay flat to dry."
+  },
 
-  // --- SECTION 2: Kurta-pyjama (100% Men's Attire Only — From Reference Screenshot) ---
+  // =========================================================================
+  // SECTION 2: Kurta-pyjama (Exactly 6 Men's Products, 6 Colors, 3 Looks)
+  // =========================================================================
   {
     id: "moe-kp-01",
-    name: "Black Embroidered Men's Kurta Set",
+    name: "Erise Ivory Cotton Silk Kurta Set",
     category: "Kurta-pyjama",
     categorySlug: "kurta-pyjama",
-    price: 3999,
-    originalPrice: 8999,
-    discount: "56% OFF",
+    price: 2999,
+    originalPrice: 6499,
+    discount: "54% OFF",
     sizes: ["38", "40", "42", "44", "46"],
     rating: 5.0,
     reviewsCount: 64,
     isFeatured: true,
-    badge: "Festive Royalty",
-    images: [
-      kurta1,
-      kurta6
-    ],
-    description: "Handcrafted black silk kurta with intricate resham thread embroidery and geometric border accents, accompanied by a coordinating patterned stole and tailored black trousers.",
-    fabric: "Pure Raw Silk with Georgette Stole",
-    care: "Dry clean only."
+    badge: "Bestseller",
+    images: [kurta1],
+    description: "Artisanal ivory cotton-silk kurta featuring a refined mandarin collar, mother-of-pearl buttons, and fine natural silk sheen, paired with tailored churidar pyjamas.",
+    fabric: "Pure Cotton Silk Blend",
+    care: "Gentle hand wash or dry clean."
   },
   {
     id: "moe-kp-02",
-    name: "Grey Textured Silk Kurta Pyjama",
+    name: "Navy Embroidered Festive Kurta Set",
     category: "Kurta-pyjama",
     categorySlug: "kurta-pyjama",
     price: 3499,
@@ -131,103 +166,90 @@ export const PRODUCTS = [
     discount: "56% OFF",
     sizes: ["38", "40", "42", "44", "46"],
     rating: 4.9,
-    reviewsCount: 47,
-    isFeatured: true,
-    badge: "Bestseller",
-    images: [
-      kurta2,
-      kurta4
-    ],
-    description: "Artisanal grey jacquard textured silk kurta featuring self-woven patterns, tailored mandarin collar, and classic ivory churidar pyjamas.",
-    fabric: "100% Jacquard Silk Blend",
-    care: "Dry clean recommended."
-  },
-  {
-    id: "moe-kp-03",
-    name: "Royal Mustard Embroidered Kurta Set",
-    category: "Kurta-pyjama",
-    categorySlug: "kurta-pyjama",
-    price: 2999,
-    originalPrice: 6999,
-    discount: "57% OFF",
-    sizes: ["38", "40", "42", "44"],
-    rating: 4.8,
-    reviewsCount: 39,
-    isFeatured: true,
-    badge: "Festive Essential",
-    images: [
-      kurta3,
-      kurta5
-    ],
-    description: "Vibrant festive mustard yellow kurta adorned with fine sequin and mirror-work thread embroidery, paired with draped pleated white dhoti-pyjamas.",
-    fabric: "Chanderi Silk with Cotton Mulmul Lining",
-    care: "Gentle dry clean only."
-  },
-  {
-    id: "moe-kp-04",
-    name: "Royal Navy Blue Silk Kurta Pyjama",
-    category: "Kurta-pyjama",
-    categorySlug: "kurta-pyjama",
-    price: 3299,
-    originalPrice: 7499,
-    discount: "56% OFF",
-    sizes: ["38", "40", "42", "44", "46"],
-    rating: 5.0,
     reviewsCount: 58,
     isFeatured: true,
     badge: "Contemporary",
-    images: [
-      kurta4,
-      kurta2
-    ],
-    description: "Sartorial deep navy blue raw silk kurta distinguished by a diagonal hand-embroidered resham panel, metallic button placket, and tailored white pyjamas.",
+    images: [kurta2],
+    description: "Sartorial deep navy raw silk kurta detailed with intricate tone-on-tone resham embroidery across the placket and collar, paired with crisp ivory pyjamas.",
     fabric: "Pure Bhagalpuri Raw Silk",
     care: "Specialist dry clean only."
   },
   {
-    id: "moe-kp-05",
-    name: "Ivory Resham Floral Embroidered Kurta Set",
+    id: "moe-kp-03",
+    name: "Pastel Yellow Festive Kurta Set",
     category: "Kurta-pyjama",
     categorySlug: "kurta-pyjama",
-    price: 3699,
-    originalPrice: 8499,
-    discount: "56% OFF",
+    price: 3199,
+    originalPrice: 6999,
+    discount: "54% OFF",
     sizes: ["38", "40", "42", "44"],
+    rating: 4.8,
+    reviewsCount: 47,
+    isFeatured: true,
+    badge: "Festive Essential",
+    images: [kurta3],
+    description: "Vibrant festive sunflower yellow kurta adorned with artisanal chikankari thread embroidery and mirror-work accents, paired with white pyjamas.",
+    fabric: "Fine Chanderi Cotton Silk",
+    care: "Gentle dry clean only."
+  },
+  {
+    id: "moe-kp-04",
+    name: "Grey Textured Silk Kurta Pyjama",
+    category: "Kurta-pyjama",
+    categorySlug: "kurta-pyjama",
+    price: 2799,
+    originalPrice: 5999,
+    discount: "53% OFF",
+    sizes: ["38", "40", "42", "44", "46"],
     rating: 4.9,
     reviewsCount: 43,
+    isFeatured: true,
+    badge: "Smart Traditional",
+    images: [kurta4],
+    description: "Subtle steel grey jacquard textured silk kurta featuring self-woven patterns, tailored mandarin collar, metallic accent buttons, and classic light grey pyjamas.",
+    fabric: "100% Jacquard Silk Blend",
+    care: "Dry clean recommended."
+  },
+  {
+    id: "moe-kp-05",
+    name: "Pastel Lilac Nehru Jacket Kurta Set",
+    category: "Kurta-pyjama",
+    categorySlug: "kurta-pyjama",
+    price: 4299,
+    originalPrice: 9499,
+    discount: "55% OFF",
+    sizes: ["38", "40", "42", "44", "46"],
+    rating: 5.0,
+    reviewsCount: 62,
     isFeatured: false,
-    badge: "Wedding Special",
-    images: [
-      kurta5,
-      kurta3
-    ],
-    description: "Regal ivory silk kurta lavishly detailed with pastel resham floral embroidery on the chest and collar, paired with crisp straight-cut tailored trousers.",
-    fabric: "Mulberry Silk with Resham Embroidery",
+    badge: "Festive Royalty",
+    images: [kurta5],
+    description: "Regal 3-piece ethnic ensemble: pastel lilac cotton-silk kurta and pyjama paired with a tailored geometric jacquard Nehru bandi jacket featuring brass buttons.",
+    fabric: "Silk-Cotton Kurta with Woven Brocade Jacket",
     care: "Dry clean only."
   },
   {
     id: "moe-kp-06",
-    name: "Heritage Black Floral Sherwani Kurta",
+    name: "White Linen Everyday Kurta Pyjama",
     category: "Kurta-pyjama",
     categorySlug: "kurta-pyjama",
-    price: 4499,
-    originalPrice: 9999,
-    discount: "55% OFF",
-    sizes: ["38", "40", "42", "44", "46"],
-    rating: 5.0,
-    reviewsCount: 61,
+    price: 1999,
+    originalPrice: 4299,
+    discount: "54% OFF",
+    sizes: ["38", "40", "42", "44"],
+    rating: 4.8,
+    reviewsCount: 35,
     isFeatured: false,
-    badge: "Grand Occasion",
-    images: [
-      kurta6,
-      kurta1
-    ],
-    description: "Grand black occasion sherwani-style kurta featuring multi-colored Kashmiri-inspired floral resham needlework and tailored mandarin collar, paired with black trousers.",
-    fabric: "Heavy Silk Brocade with Hand Embroidery",
-    care: "Specialist dry clean only."
+    badge: "Daily Wear",
+    images: [kurta6],
+    description: "Crisp pure white breathable linen everyday kurta paired with straight-cut relaxed pyjamas. Effortlessly light and airy for daily comfort and informal gatherings.",
+    fabric: "100% Pure Organic Linen",
+    care: "Machine wash cold, line dry in shade."
   },
 
-  // --- SECTION 3: Blazers (Menswear Only) ---
+  // =========================================================================
+  // SECTION 3: Blazers (Exactly 6 Products — 100% Untouched)
+  // =========================================================================
   {
     id: "moe-bz-01",
     name: "Erise Navy Notch Lapel Blazer",
