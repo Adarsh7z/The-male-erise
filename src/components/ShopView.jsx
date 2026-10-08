@@ -1,19 +1,21 @@
 import React, { useState, useMemo } from 'react';
-import ProductCard from './ProductCard';
+import ProductCard from './product/ProductCard';
 import { PRODUCTS } from '../data/products';
 import { CATEGORIES } from '../data/categories';
-import { SlidersHorizontal, Search, RotateCcw, X, ArrowDownUp } from 'lucide-react';
+import { SlidersIcon, SearchIcon, CloseIcon, ArrowDownUpIcon, ResetIcon } from './ui/Icons';
 
 export default function ShopView({
   selectedCategorySlug,
   setSelectedCategorySlug,
   wishlist,
   onToggleWishlist,
-  onQuickView
+  onQuickView,
 }) {
   const [productSearch, setProductSearch] = useState('');
   const [selectedCategories, setSelectedCategories] = useState(
-    selectedCategorySlug ? [selectedCategorySlug === 'coats' ? 'blazers' : selectedCategorySlug] : []
+    selectedCategorySlug
+      ? [selectedCategorySlug === 'coats' ? 'blazers' : selectedCategorySlug]
+      : []
   );
 
   React.useEffect(() => {
@@ -22,14 +24,15 @@ export default function ShopView({
       setSelectedCategories([normalized]);
     }
   }, [selectedCategorySlug]);
+
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [maxPrice, setMaxPrice] = useState(15000);
   const [sortBy, setSortBy] = useState('featured');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [mobileSortOpen, setMobileSortOpen] = useState(false);
 
-  // Available sizes across the 3 sections
-  const availableSizes = ["S", "M", "L", "XL", "XXL", "38", "40", "42", "44"];
+  // Available sizes across the 3 collections
+  const availableSizes = ['S', 'M', 'L', 'XL', 'XXL', '38', '40', '42', '44'];
 
   const toggleCategory = (slug) => {
     setSelectedCategories((prev) =>
@@ -59,7 +62,8 @@ export default function ShopView({
       result = result.filter(
         (p) =>
           p.name.toLowerCase().includes(productSearch.toLowerCase()) ||
-          p.category.toLowerCase().includes(productSearch.toLowerCase())
+          p.category.toLowerCase().includes(productSearch.toLowerCase()) ||
+          (p.fabric && p.fabric.toLowerCase().includes(productSearch.toLowerCase()))
       );
     }
 
@@ -69,7 +73,7 @@ export default function ShopView({
 
     if (selectedSizes.length > 0) {
       result = result.filter((p) =>
-        p.sizes.some((s) => selectedSizes.includes(s))
+        p.sizes && p.sizes.some((s) => selectedSizes.includes(s))
       );
     }
 
@@ -87,186 +91,88 @@ export default function ShopView({
   }, [productSearch, selectedCategories, selectedSizes, maxPrice, sortBy]);
 
   return (
-    <div className="py-6 sm:py-10 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      
-      {/* Mobile Top Controls: Search Bar & Dual Purple Buttons (Exact layout in Mobile-ui.mp4 at 00:07) */}
-      <div className="lg:hidden mb-5 space-y-2.5">
-        {/* Search Bar with Purple Button */}
-        <div className="flex items-center gap-2">
-          <div className="relative flex-1">
+    <div className="section-y bg-[#ffffff] select-none">
+      <div className="shell">
+        {/* Mobile Top Controls */}
+        <div className="lg:hidden mb-6 space-y-3">
+          {/* Search Bar */}
+          <div className="flex items-center border border-black/15 bg-[#f5f5f3] px-3 py-2">
+            <SearchIcon width={16} height={16} className="text-neutral-500 mr-2 shrink-0" />
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Search garments, fabrics..."
               value={productSearch}
               onChange={(e) => setProductSearch(e.target.value)}
-              className="w-full text-xs sm:text-sm pl-4 pr-3 py-2.5 bg-white border border-zinc-300 rounded-lg focus:outline-none focus:border-purple-600"
+              className="w-full text-xs bg-transparent outline-none text-[#0a0a0a] placeholder:text-neutral-400"
             />
-          </div>
-          <button
-            onClick={() => {}}
-            className="bg-[#8b24d6] hover:bg-[#7a1ec0] text-white p-2.5 rounded-lg flex items-center justify-center shrink-0 shadow-sm"
-            aria-label="Search"
-          >
-            <Search className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Dual Purple Action Buttons: [Filter] and [Sort by] */}
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            onClick={() => setMobileFilterOpen(true)}
-            className="bg-[#8b24d6] hover:bg-[#7a1ec0] text-white text-xs font-semibold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all active:scale-98"
-          >
-            <SlidersHorizontal className="w-3.5 h-3.5" />
-            <span>Filter {selectedCategories.length > 0 && `(${selectedCategories.length})`}</span>
-          </button>
-
-          <button
-            onClick={() => setMobileSortOpen(true)}
-            className="bg-[#8b24d6] hover:bg-[#7a1ec0] text-white text-xs font-semibold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all active:scale-98"
-          >
-            <ArrowDownUp className="w-3.5 h-3.5" />
-            <span>Sort by</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Desktop Header */}
-      <div className="hidden lg:flex items-center justify-between pb-6 mb-6 border-b border-zinc-200">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
-            Catalog & Shop
-          </h1>
-          <p className="text-sm text-zinc-500 mt-0.5">
-            Showing {displayProducts.length} items across Office casuals, Kurta-pyjama & Blazers
-          </p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        
-        {/* Left Sidebar: Desktop FILTER */}
-        <aside className="hidden lg:block lg:col-span-1">
-          <div className="bg-white border border-zinc-200 rounded-2xl p-5 shadow-xs space-y-6 sticky top-24">
-            
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-100">
-              <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-zinc-900" />
-                <h2 className="text-sm font-bold uppercase tracking-wider text-zinc-900">
-                  FILTER
-                </h2>
-              </div>
-              <button
-                onClick={resetFilters}
-                className="text-xs text-zinc-500 hover:text-black flex items-center gap-1 transition-colors"
-                title="Reset Filters"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Reset</span>
+            {productSearch && (
+              <button onClick={() => setProductSearch('')} className="p-1 text-neutral-400">
+                <CloseIcon width={14} height={14} />
               </button>
-            </div>
-
-            {/* SECTIONS: Office casuals, Kurta-pyjama, Blazers */}
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-3">
-                SECTIONS
-              </h3>
-              <div className="space-y-2.5">
-                {CATEGORIES.map((cat) => {
-                  const isChecked = selectedCategories.includes(cat.slug);
-                  return (
-                    <label
-                      key={cat.id}
-                      className="flex items-center justify-between text-xs text-zinc-700 hover:text-black cursor-pointer group py-0.5"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => toggleCategory(cat.slug)}
-                          className="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 border-zinc-300 cursor-pointer"
-                        />
-                        <span className={`group-hover:translate-x-0.5 transition-transform ${isChecked ? 'font-bold text-zinc-900' : ''}`}>
-                          {cat.name}
-                        </span>
-                      </div>
-                      <span className="text-[11px] text-zinc-400 font-mono">
-                        ({cat.itemCount})
-                      </span>
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* SIZE */}
-            <div className="pt-4 border-t border-zinc-100">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-3">
-                SIZE
-              </h3>
-              <div className="flex flex-wrap gap-1.5">
-                {availableSizes.map((size) => {
-                  const isSelected = selectedSizes.includes(size);
-                  return (
-                    <button
-                      key={size}
-                      type="button"
-                      onClick={() => toggleSize(size)}
-                      className={`text-xs font-semibold px-2.5 py-1 rounded-md border transition-all ${
-                        isSelected
-                          ? 'bg-zinc-900 text-white border-zinc-900 shadow-xs'
-                          : 'bg-zinc-50 text-zinc-700 border-zinc-200 hover:border-zinc-400'
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* PRICE */}
-            <div className="pt-4 border-t border-zinc-100">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-900">
-                  PRICE
-                </h3>
-                <span className="text-xs font-mono font-bold text-zinc-800">
-                  Up to ₹{maxPrice.toLocaleString()}
-                </span>
-              </div>
-              <input
-                type="range"
-                min="1000"
-                max="15000"
-                step="500"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full accent-purple-600 cursor-pointer"
-              />
-              <div className="flex justify-between text-[11px] text-zinc-400 mt-1 font-mono">
-                <span>₹1,000.00</span>
-                <span>₹15,000.00</span>
-              </div>
-            </div>
+            )}
           </div>
-        </aside>
 
-        {/* Right Main Catalog Grid */}
-        <main className="lg:col-span-3">
-          
-          {/* Desktop Control Bar */}
-          <div className="hidden lg:flex bg-zinc-50 border border-zinc-200/80 rounded-xl px-4 py-3 mb-6 items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-600">
-              {displayProducts.length} PRODUCTS FOUND
-            </span>
+          {/* Dual Buttons: [Filter] and [Sort by] */}
+          <div className="grid grid-cols-2 gap-2.5">
+            <button
+              type="button"
+              onClick={() => setMobileFilterOpen(true)}
+              className="btn btn-ink text-xs py-2.5 flex items-center justify-center gap-2"
+            >
+              <SlidersIcon width={13} height={13} />
+              <span>
+                Filter {selectedCategories.length > 0 ? `(${selectedCategories.length})` : ''}
+              </span>
+            </button>
 
+            <button
+              type="button"
+              onClick={() => setMobileSortOpen(true)}
+              className="btn btn-ghost text-xs py-2.5 flex items-center justify-center gap-2 border-black/20 text-[#0a0a0a]"
+            >
+              <ArrowDownUpIcon width={13} height={13} />
+              <span>Sort by</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop Header */}
+        <div className="hidden lg:flex items-end justify-between pb-6 mb-8 border-b border-black/10">
+          <div>
+            <p className="label text-muted">Bespoke Catalog</p>
+            <h1 className="t-head type-silver mt-2 text-4xl font-light">
+              All Menswear
+            </h1>
+            <p className="t-body text-xs text-neutral-500 mt-1">
+              Showing {displayProducts.length} pieces across Office casuals, Kurta-pyjama & Blazers
+            </p>
+          </div>
+
+          <div className="flex items-center gap-4">
+            {/* Desktop Quick Search */}
+            <div className="flex items-center border border-black/15 bg-white px-3 py-1.5 w-64">
+              <SearchIcon width={14} height={14} className="text-neutral-400 mr-2 shrink-0" />
+              <input
+                type="text"
+                placeholder="Search collection..."
+                value={productSearch}
+                onChange={(e) => setProductSearch(e.target.value)}
+                className="w-full text-xs outline-none bg-transparent placeholder:text-neutral-400"
+              />
+              {productSearch && (
+                <button onClick={() => setProductSearch('')} className="p-0.5 text-neutral-400">
+                  <CloseIcon width={12} height={12} />
+                </button>
+              )}
+            </div>
+
+            {/* Sort Selector */}
             <div className="flex items-center gap-2">
-              <span className="text-xs text-zinc-500 font-medium">Sort by:</span>
+              <span className="label text-[10px] text-neutral-400">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="text-xs font-semibold bg-white border border-zinc-300 rounded-lg px-3 py-1.5 focus:outline-none focus:border-zinc-500 cursor-pointer"
+                className="label text-xs bg-white border border-black/15 px-3 py-1.5 outline-none cursor-pointer text-[#0a0a0a]"
               >
                 <option value="featured">Featured</option>
                 <option value="price-low">Price: Low to High</option>
@@ -275,200 +181,335 @@ export default function ShopView({
               </select>
             </div>
           </div>
+        </div>
 
-          {/* Active Filter Tags */}
-          {(selectedCategories.length > 0 || selectedSizes.length > 0 || maxPrice < 15000) && (
-            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap mb-4">
-              <span className="text-xs text-zinc-400 font-medium">Active Filters:</span>
-              {selectedCategories.map((slug) => {
-                const cat = CATEGORIES.find((c) => c.slug === slug);
-                return (
+        {/* Layout: Sidebar + Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Left Sidebar: Desktop FILTER */}
+          <aside className="hidden lg:block lg:col-span-1">
+            <div className="bg-bone border border-black/10 p-5 space-y-6 sticky top-28">
+              <div className="flex items-center justify-between pb-3 border-b border-black/10">
+                <div className="flex items-center gap-2">
+                  <SlidersIcon width={14} height={14} className="text-[#0a0a0a]" />
+                  <h2 className="label text-xs text-[#0a0a0a]">Filters</h2>
+                </div>
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="label text-[10px] text-neutral-500 hover:text-black flex items-center gap-1 transition-colors"
+                >
+                  <ResetIcon width={11} height={11} />
+                  <span>Reset</span>
+                </button>
+              </div>
+
+              {/* SECTIONS: Office casuals, Kurta-pyjama, Blazers */}
+              <div>
+                <h3 className="label text-[10px] text-neutral-500 mb-3">
+                  Collections
+                </h3>
+                <div className="space-y-2">
+                  {CATEGORIES.map((cat) => {
+                    const isChecked = selectedCategories.includes(cat.slug);
+                    return (
+                      <label
+                        key={cat.id}
+                        className="flex items-center justify-between text-xs text-neutral-700 hover:text-black cursor-pointer group py-0.5 select-none"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => toggleCategory(cat.slug)}
+                            className="w-4 h-4 rounded-none accent-[#0a0a0a] cursor-pointer"
+                          />
+                          <span className={isChecked ? 'font-medium text-black' : ''}>
+                            {cat.name}
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-neutral-400">
+                          ({cat.itemCount})
+                        </span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* SIZE */}
+              <div className="pt-4 border-t border-black/10">
+                <h3 className="label text-[10px] text-neutral-500 mb-3">
+                  Size
+                </h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {availableSizes.map((size) => {
+                    const isSelected = selectedSizes.includes(size);
+                    return (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => toggleSize(size)}
+                        className={`text-xs px-2.5 py-1 border transition-colors ${
+                          isSelected
+                            ? 'bg-[#0a0a0a] text-white border-[#0a0a0a]'
+                            : 'bg-white text-neutral-700 border-neutral-200 hover:border-black'
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* PRICE */}
+              <div className="pt-4 border-t border-black/10">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="label text-[10px] text-neutral-500">
+                    Max Price
+                  </h3>
+                  <span className="text-xs font-medium text-black">
+                    Up to ₹{maxPrice.toLocaleString()}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="1000"
+                  max="15000"
+                  step="500"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="w-full accent-[#0a0a0a] cursor-pointer"
+                />
+                <div className="flex justify-between text-[10px] text-neutral-400 mt-1">
+                  <span>₹1,000</span>
+                  <span>₹15,000</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* Right Main Catalog Grid */}
+          <main className="lg:col-span-3">
+            {/* Active Filter Tags */}
+            {(selectedCategories.length > 0 || selectedSizes.length > 0 || maxPrice < 15000) && (
+              <div className="flex items-center gap-2 flex-wrap mb-5">
+                <span className="label text-[10px] text-neutral-400">Active:</span>
+                {selectedCategories.map((slug) => {
+                  const cat = CATEGORIES.find((c) => c.slug === slug);
+                  return (
+                    <span
+                      key={slug}
+                      className="label text-[10px] inline-flex items-center gap-1.5 bg-bone border border-black/10 px-2.5 py-1 text-black"
+                    >
+                      {cat?.name || slug}
+                      <CloseIcon
+                        width={11}
+                        height={11}
+                        className="cursor-pointer hover:text-red-500"
+                        onClick={() => toggleCategory(slug)}
+                      />
+                    </span>
+                  );
+                })}
+                {selectedSizes.map((size) => (
                   <span
-                    key={slug}
-                    className="inline-flex items-center gap-1 bg-purple-50 text-purple-700 text-xs px-2.5 py-1 rounded-full font-medium"
+                    key={size}
+                    className="label text-[10px] inline-flex items-center gap-1.5 bg-bone border border-black/10 px-2.5 py-1 text-black"
                   >
-                    {cat?.name || slug}
-                    <X
-                      className="w-3 h-3 cursor-pointer hover:text-purple-900"
-                      onClick={() => toggleCategory(slug)}
+                    Size: {size}
+                    <CloseIcon
+                      width={11}
+                      height={11}
+                      className="cursor-pointer hover:text-red-500"
+                      onClick={() => toggleSize(size)}
                     />
                   </span>
-                );
-              })}
-              {selectedSizes.map((size) => (
-                <span
-                  key={size}
-                  className="inline-flex items-center gap-1 bg-zinc-100 text-zinc-700 text-xs px-2.5 py-1 rounded-full font-medium"
+                ))}
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="label text-[10px] text-red-600 hover:text-red-800 underline ml-1"
                 >
-                  Size: {size}
-                  <X
-                    className="w-3 h-3 cursor-pointer hover:text-black"
-                    onClick={() => toggleSize(size)}
-                  />
-                </span>
-              ))}
-              <button
-                onClick={resetFilters}
-                className="text-xs text-red-500 hover:text-red-700 font-medium ml-1 underline"
-              >
-                Clear all
-              </button>
-            </div>
-          )}
-
-          {/* Product Grid: 2 columns on Mobile, 3 on Desktop (Matching Mobile-ui.mp4) */}
-          {displayProducts.length === 0 ? (
-            <div className="bg-zinc-50 border border-dashed border-zinc-300 rounded-2xl p-10 text-center my-6">
-              <p className="text-sm font-semibold text-zinc-700">No pieces match your filters</p>
-              <button
-                onClick={resetFilters}
-                className="mt-3 bg-zinc-900 text-white text-xs font-semibold px-4 py-2 rounded-lg"
-              >
-                Reset Filters
-              </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-5">
-              {displayProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  isWishlisted={wishlist.includes(product.id)}
-                  onToggleWishlist={onToggleWishlist}
-                  onQuickView={onQuickView}
-                />
-              ))}
-            </div>
-          )}
-        </main>
-      </div>
-
-      {/* Mobile Filter Modal / Drawer */}
-      {mobileFilterOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs">
-          <div className="w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl p-5 max-h-[85vh] overflow-y-auto space-y-5 animate-slide-up">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
-              <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-purple-700" />
-                <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-900">Filter By</h3>
+                  Clear all
+                </button>
               </div>
-              <button onClick={() => setMobileFilterOpen(false)} className="p-1 text-zinc-500">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+            )}
 
-            {/* Categories */}
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-2">Sections</h4>
-              <div className="space-y-2">
-                {CATEGORIES.map((cat) => (
-                  <label key={cat.id} className="flex items-center justify-between text-xs text-zinc-800 py-1">
-                    <div className="flex items-center gap-2.5">
-                      <input
-                        type="checkbox"
-                        checked={selectedCategories.includes(cat.slug)}
-                        onChange={() => toggleCategory(cat.slug)}
-                        className="w-4 h-4 rounded text-purple-600"
-                      />
-                      <span className="font-medium">{cat.name}</span>
-                    </div>
-                    <span className="text-zinc-400">({cat.itemCount})</span>
-                  </label>
+            {/* Products Grid */}
+            {displayProducts.length === 0 ? (
+              <div className="bg-bone border border-dashed border-black/15 p-12 text-center my-6">
+                <p className="t-head text-2xl font-light text-neutral-800">
+                  No pieces match your filters
+                </p>
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="btn btn-ink mt-4 text-xs"
+                >
+                  Reset all filters
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+                {displayProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    isWishlisted={wishlist.includes(product.id)}
+                    onToggleWishlist={onToggleWishlist}
+                    onQuickView={onQuickView}
+                  />
                 ))}
               </div>
-            </div>
+            )}
+          </main>
+        </div>
 
-            {/* Sizes */}
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-2">Sizes</h4>
-              <div className="flex flex-wrap gap-1.5">
-                {availableSizes.map((size) => (
+        {/* Mobile Filter Drawer */}
+        {mobileFilterOpen && (
+          <div
+            onClick={() => setMobileFilterOpen(false)}
+            className="fixed inset-0 z-50 flex items-end justify-center bg-black/75 backdrop-blur-xs select-none"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="w-full bg-[#0a0a0a] text-white border-t border-white/10 p-6 max-h-[85vh] overflow-y-auto space-y-5 animate-slide-up"
+            >
+              <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                <div className="flex items-center gap-2">
+                  <SlidersIcon width={15} height={15} className="text-silver-300" />
+                  <h3 className="label text-xs text-white">Filter Collection</h3>
+                </div>
+                <button onClick={() => setMobileFilterOpen(false)} className="p-1 text-neutral-400">
+                  <CloseIcon width={16} height={16} />
+                </button>
+              </div>
+
+              {/* Categories */}
+              <div>
+                <h4 className="label text-[10px] text-silver-300 mb-2.5">Collections</h4>
+                <div className="space-y-2">
+                  {CATEGORIES.map((cat) => (
+                    <label key={cat.id} className="flex items-center justify-between text-xs py-1">
+                      <div className="flex items-center gap-2.5">
+                        <input
+                          type="checkbox"
+                          checked={selectedCategories.includes(cat.slug)}
+                          onChange={() => toggleCategory(cat.slug)}
+                          className="w-4 h-4 rounded-none accent-white"
+                        />
+                        <span className="text-neutral-200">{cat.name}</span>
+                      </div>
+                      <span className="text-neutral-500 text-[10px]">({cat.itemCount})</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sizes */}
+              <div>
+                <h4 className="label text-[10px] text-silver-300 mb-2.5">Sizes</h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {availableSizes.map((size) => (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => toggleSize(size)}
+                      className={`text-xs px-3 py-1.5 border transition-colors ${
+                        selectedSizes.includes(size)
+                          ? 'bg-white text-black border-white'
+                          : 'bg-[#1a1a1a] text-neutral-300 border-white/10'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Price */}
+              <div>
+                <div className="flex justify-between text-xs mb-2">
+                  <span className="label text-[10px] text-silver-300">Max Price:</span>
+                  <span className="font-semibold text-white">₹{maxPrice.toLocaleString()}</span>
+                </div>
+                <input
+                  type="range"
+                  min="1000"
+                  max="15000"
+                  step="500"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="w-full accent-white"
+                />
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-3 pt-3">
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="btn btn-ghost flex-1 text-xs py-2.5"
+                >
+                  Reset
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMobileFilterOpen(false)}
+                  className="btn btn-paper flex-1 text-xs py-2.5"
+                >
+                  Apply Filters
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Mobile Sort Modal */}
+        {mobileSortOpen && (
+          <div
+            onClick={() => setMobileSortOpen(false)}
+            className="fixed inset-0 z-50 flex items-end justify-center bg-black/75 backdrop-blur-xs select-none"
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="w-full bg-[#0a0a0a] text-white border-t border-white/10 p-6 space-y-4 animate-slide-up"
+            >
+              <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                <h3 className="label text-xs text-white">Sort Collection</h3>
+                <button onClick={() => setMobileSortOpen(false)} className="p-1 text-neutral-400">
+                  <CloseIcon width={16} height={16} />
+                </button>
+              </div>
+              <div className="space-y-1">
+                {[
+                  { label: 'Featured', value: 'featured' },
+                  { label: 'Price: Low to High', value: 'price-low' },
+                  { label: 'Price: High to Low', value: 'price-high' },
+                  { label: 'Top Rated', value: 'rating' },
+                ].map((opt) => (
                   <button
-                    key={size}
+                    key={opt.value}
                     type="button"
-                    onClick={() => toggleSize(size)}
-                    className={`text-xs font-semibold px-3 py-1.5 rounded-lg border ${
-                      selectedSizes.includes(size)
-                        ? 'bg-zinc-900 text-white border-zinc-900'
-                        : 'bg-zinc-50 text-zinc-700 border-zinc-200'
+                    onClick={() => {
+                      setSortBy(opt.value);
+                      setMobileSortOpen(false);
+                    }}
+                    className={`w-full text-left py-2.5 px-3 text-xs transition-colors ${
+                      sortBy === opt.value
+                        ? 'bg-white text-black font-semibold'
+                        : 'text-neutral-300 hover:bg-white/10'
                     }`}
                   >
-                    {size}
+                    {opt.label}
                   </button>
                 ))}
               </div>
             </div>
-
-            {/* Price */}
-            <div>
-              <div className="flex justify-between text-xs font-bold mb-2">
-                <span>Max Price:</span>
-                <span className="font-mono">₹{maxPrice.toLocaleString()}</span>
-              </div>
-              <input
-                type="range"
-                min="1000"
-                max="15000"
-                step="500"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full accent-purple-600"
-              />
-            </div>
-
-            {/* Actions */}
-            <div className="flex gap-2 pt-2">
-              <button
-                onClick={resetFilters}
-                className="flex-1 border border-zinc-300 text-zinc-700 font-semibold py-2.5 rounded-xl text-xs"
-              >
-                Reset
-              </button>
-              <button
-                onClick={() => setMobileFilterOpen(false)}
-                className="flex-1 bg-[#8b24d6] text-white font-semibold py-2.5 rounded-xl text-xs shadow-md"
-              >
-                Apply Filters
-              </button>
-            </div>
           </div>
-        </div>
-      )}
-
-      {/* Mobile Sort Modal */}
-      {mobileSortOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-xs">
-          <div className="w-full sm:max-w-sm bg-white rounded-t-3xl sm:rounded-3xl p-5 space-y-4 animate-slide-up">
-            <div className="flex items-center justify-between pb-2 border-b border-zinc-200">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-900">Sort Products</h3>
-              <button onClick={() => setMobileSortOpen(false)} className="p-1 text-zinc-500">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="space-y-1">
-              {[
-                { label: 'Featured', value: 'featured' },
-                { label: 'Price: Low to High', value: 'price-low' },
-                { label: 'Price: High to Low', value: 'price-high' },
-                { label: 'Top Rated', value: 'rating' }
-              ].map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => {
-                    setSortBy(opt.value);
-                    setMobileSortOpen(false);
-                  }}
-                  className={`w-full text-left py-2.5 px-3 rounded-xl text-xs font-semibold ${
-                    sortBy === opt.value ? 'bg-purple-50 text-purple-700 font-bold' : 'text-zinc-700 hover:bg-zinc-50'
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

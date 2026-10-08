@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, MessageCircle } from 'lucide-react';
-import { PRODUCTS, BRAND_INFO } from '../data/products';
+import { SearchIcon, CloseIcon } from './ui/Icons';
+import { PRODUCTS } from '../data/products';
 
 export default function SearchModal({ isOpen, onClose, onSelectProduct }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -8,7 +8,7 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }) {
 
   useEffect(() => {
     if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
+      setTimeout(() => inputRef.current?.focus(), 60);
     } else {
       setSearchTerm('');
     }
@@ -16,69 +16,83 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }) {
 
   if (!isOpen) return null;
 
-  const results = searchTerm.trim() === ''
-    ? []
-    : PRODUCTS.filter((p) =>
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.fabric.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+  const results =
+    searchTerm.trim() === ''
+      ? []
+      : PRODUCTS.filter(
+          (p) =>
+            p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            p.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (p.fabric && p.fabric.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
 
-  const quickKeywords = ["Linen Shirt", "Silk Kurta", "Pyjama Set", "Navy Blazer", "Tweed Blazer", "Trouser"];
+  const quickKeywords = [
+    'Office Casuals',
+    'Kurta Pajama',
+    'Blazers',
+    'Linen',
+    'Silk Kurta',
+    'Tweed Blazer',
+  ];
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-start justify-center pt-16 sm:pt-24 px-4">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-start justify-center pt-16 sm:pt-24 px-4 select-none animate-fadeIn"
+    >
       <div
-        className="w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-zinc-200"
+        className="w-full max-w-2xl bg-[#0a0a0a] text-white border border-silver-500/30 shadow-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Search Header */}
-        <div className="p-4 sm:p-5 border-b border-zinc-200 flex items-center gap-3">
-          <Search className="w-5 h-5 text-zinc-400" />
+        {/* Search Input Bar */}
+        <div className="p-4 sm:p-5 border-b border-white/10 flex items-center gap-3">
+          <SearchIcon width={18} height={18} className="text-silver-400 shrink-0" />
           <input
             ref={inputRef}
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search office casuals, kurta-pyjama, blazers..."
-            className="flex-1 text-sm sm:text-base outline-none text-zinc-900 placeholder:text-zinc-400 font-medium"
+            placeholder="Search Office casuals, Kurta-pyjama, Blazers..."
+            className="flex-1 bg-transparent text-sm sm:text-base outline-none text-white placeholder:text-neutral-500 font-sans"
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm('')}
-              className="p-1 text-zinc-400 hover:text-black rounded"
+              className="p-1 text-neutral-400 hover:text-white"
             >
-              <X className="w-4 h-4" />
+              <CloseIcon width={16} height={16} />
             </button>
           )}
           <button
             onClick={onClose}
-            className="text-xs font-semibold text-zinc-500 hover:text-black px-2 py-1 bg-zinc-100 rounded-lg"
+            className="label text-[10px] text-neutral-400 hover:text-white px-2 py-1 border border-white/10"
           >
             ESC
           </button>
         </div>
 
         {/* Quick Suggestion Pills */}
-        <div className="p-4 bg-zinc-50 border-b border-zinc-100 flex items-center gap-2 flex-wrap">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">Popular:</span>
+        <div className="p-3.5 bg-[#131313] border-b border-white/5 flex items-center gap-2 flex-wrap">
+          <span className="label text-[9px] text-silver-400 mr-1">Suggested:</span>
           {quickKeywords.map((k) => (
             <button
               key={k}
               onClick={() => setSearchTerm(k)}
-              className="text-xs bg-white border border-zinc-200 text-zinc-700 hover:border-black px-2.5 py-1 rounded-full font-medium transition-colors"
+              className="label text-[9px] bg-[#1a1a1a] hover:bg-[#262626] border border-white/10 text-neutral-300 hover:text-white px-2.5 py-1 transition-colors"
             >
               {k}
             </button>
           ))}
         </div>
 
-        {/* Results area */}
-        <div className="max-h-96 overflow-y-auto p-4 divide-y divide-zinc-100">
+        {/* Results Area */}
+        <div className="max-h-[60vh] overflow-y-auto p-4 divide-y divide-white/5">
           {searchTerm.trim() !== '' && results.length === 0 ? (
-            <div className="py-12 text-center text-zinc-500">
-              <p className="text-sm font-semibold">No pieces found matching "{searchTerm}"</p>
-              <p className="text-xs mt-1">Try another keyword or search by category name</p>
+            <div className="py-12 text-center text-neutral-400">
+              <p className="text-sm">No menswear pieces found matching "{searchTerm}"</p>
+              <p className="text-xs mt-1 text-neutral-500">
+                Try searching for "Blazer", "Kurta", "Linen", or "Shirt"
+              </p>
             </div>
           ) : results.length > 0 ? (
             results.map((product) => (
@@ -88,37 +102,39 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }) {
                   onSelectProduct(product);
                   onClose();
                 }}
-                className="py-3 px-2 flex items-center justify-between gap-4 hover:bg-zinc-50 rounded-xl cursor-pointer group transition-colors"
+                className="py-3 px-2 flex items-center justify-between gap-4 hover:bg-[#151515] cursor-pointer group transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <img
                     src={product.images[0]}
                     alt={product.name}
-                    className="w-14 h-14 object-cover rounded-xl bg-zinc-100"
+                    className="w-12 h-16 object-cover bg-neutral-900 border border-white/10"
                   />
                   <div>
-                    <h4 className="text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-purple-700 transition-colors">
+                    <h4 className="text-xs sm:text-sm font-normal text-white group-hover:text-silver-300 transition-colors">
                       {product.name}
                     </h4>
-                    <p className="text-[11px] text-zinc-400 font-medium">
-                      {product.category}
+                    <p className="label text-[10px] text-neutral-400 mt-1">
+                      {product.category} {product.fabric ? `· ${product.fabric}` : ''}
                     </p>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-xs sm:text-sm font-bold text-zinc-900">
+                  <div className="text-xs sm:text-sm font-semibold text-white">
                     ₹{product.price.toLocaleString()}
                   </div>
-                  <span className="text-[10px] text-zinc-400 line-through">
-                    ₹{product.originalPrice.toLocaleString()}
-                  </span>
+                  {product.originalPrice && product.originalPrice > product.price && (
+                    <span className="text-[10px] text-neutral-500 line-through">
+                      ₹{product.originalPrice.toLocaleString()}
+                    </span>
+                  )}
                 </div>
               </div>
             ))
           ) : (
-            <div className="py-10 text-center text-zinc-400 text-xs">
-              Type keywords above to search all current Male Order Erise inventory.
+            <div className="py-8 text-center text-neutral-500 text-xs">
+              Type above to search across our full menswear inventory
             </div>
           )}
         </div>

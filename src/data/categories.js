@@ -1,6 +1,3 @@
-import kurtaImage from '../assets/kurtas/kurta-4-navy-silk.jpg';
-import blazerCover from '../assets/blazers/blazer-1-navy-notch.jpg';
-
 export const CATEGORIES = [
   {
     id: "office-casuals",
@@ -8,8 +5,8 @@ export const CATEGORIES = [
     shortName: "Office Casuals",
     slug: "office-casuals",
     itemCount: 16,
-    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80",
-    description: "Refined linen button-downs, Cuban collars, smart pleated trousers & relaxed office-ready essentials."
+    image: "/photos/mob-category-office-casuals.jpg",
+    description: "Refined linen button-downs, knit polos, smart pleated trousers & relaxed office-ready essentials."
   },
   {
     id: "kurta-pyjama",
@@ -17,7 +14,7 @@ export const CATEGORIES = [
     shortName: "Kurta-Pyjama",
     slug: "kurta-pyjama",
     itemCount: 14,
-    image: kurtaImage,
+    image: "/photos/mob-category-kurta-pajama.jpg",
     description: "Artisanal handwoven silk kurtas, tailored pyjamas, and contemporary festive ethnic silhouettes for men."
   },
   {
@@ -26,7 +23,7 @@ export const CATEGORIES = [
     shortName: "Blazers",
     slug: "blazers",
     itemCount: 6,
-    image: blazerCover,
-    description: "Tailored single-breasted notch lapel blazers, structured double-breasted jackets & luxury party blazers."
+    image: "/photos/blazer-1-navy-notch.jpg",
+    description: "Tailored single-breasted notch lapel blazers, structured double-breasted jackets & luxury formal blazers."
   }
 ];

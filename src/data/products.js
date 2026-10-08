@@ -28,8 +28,8 @@ export const PRODUCTS = [
     isFeatured: true,
     badge: "Bestseller",
     images: [
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80"
+      "/photos/mob-p01-a.jpg",
+      "/photos/mob-p01-b.jpg"
     ],
     description: "Breathable French flax linen with a structured Cuban open collar and mother-of-pearl buttons. Tailored for effortless boardroom-to-evening transitions.",
     fabric: "100% French Linen",
@@ -49,8 +49,8 @@ export const PRODUCTS = [
     isFeatured: true,
     badge: "Popular",
     images: [
-      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&w=800&q=80"
+      "/photos/mob-p03-a.jpg",
+      "/photos/mob-p03-b.jpg"
     ],
     description: "High-waisted sartorial silhouette with sharp double front pleats and side tab adjusters. Fluid drape with comfort stretch.",
     fabric: "Poly-Viscose Wool Blend with 2% Elastane",
@@ -70,8 +70,8 @@ export const PRODUCTS = [
     isFeatured: true,
     badge: "Workwear",
     images: [
-      "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=80"
+      "/photos/mob-p02-a.jpg",
+      "/photos/mob-p02-b.jpg"
     ],
     description: "Crisp 100-ply long staple American Supima cotton oxford weave with tailored button-down collar and reinforced French seams.",
     fabric: "100% Supima Long Staple Cotton",
@@ -91,8 +91,8 @@ export const PRODUCTS = [
     isFeatured: false,
     badge: "Smart Casual",
     images: [
-      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80"
+      "/photos/mob-p04-a.jpg",
+      "/photos/mob-p04-b.jpg"
     ],
     description: "Fine-gauge knitted polo with ribbed hem and cuffs. Luxurious soft handfeel perfect under blazers or worn solo.",
     fabric: "Mercerized Combed Cotton Knit",
@@ -352,6 +352,7 @@ export const BRAND_INFO = {
   shippingNotice: "Free express shipping on all orders.",
   googleMapsLink: "https://maps.app.goo.gl/gjsVJZEEbnEVsemeA",
   mapEmbedSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16484.46831769934!2d72.50545508715818!3d23.0342519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e84b5460078c1%3A0x658e0b3cafb018a1!2sMale%20Order%20Erise!5e1!3m2!1sen!2sin!4v1791451546085!5m2!1sen!2sin",
+  address: "Bodakdev, Ahmedabad, Gujarat, India",
   addressDisplay: "Bodakdev, Ahmedabad, Gujarat, India",
   socials: {
     instagram: "https://instagram.com/maleordererise",

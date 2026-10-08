@@ -2,53 +2,27 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { CATEGORIES } from '../data/categories';
-import { ArrowRight, X } from 'lucide-react';
+import { ArrowRightIcon, CloseIcon } from './ui/Icons';
 
 export default function CategoryDrawer({ isOpen, onClose, onSelectCategory }) {
   const containerRef = useRef(null);
-  const cardsRef = useRef(null);
 
   useGSAP(
     () => {
-      const mm = gsap.matchMedia();
-
-      mm.add(
-        {
-          reduce: "(prefers-reduced-motion: reduce)",
-          motion: "(prefers-reduced-motion: no-preference)",
-        },
-        (ctx) => {
-          const { reduce } = ctx.conditions;
-
-          if (isOpen) {
-            if (reduce) {
-              gsap.set(containerRef.current, { autoAlpha: 1, y: 0 });
-              gsap.set(".category-card-item", { autoAlpha: 1, y: 0 });
-            } else {
-              const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-              tl.fromTo(
-                containerRef.current,
-                { autoAlpha: 0, y: -20 },
-                { autoAlpha: 1, y: 0, duration: 0.35 }
-              ).fromTo(
-                ".category-card-item",
-                { autoAlpha: 0, y: 15, scale: 0.95 },
-                { autoAlpha: 1, y: 0, scale: 1, duration: 0.35, stagger: 0.04 },
-                "-=0.2"
-              );
-            }
-          } else {
-            if (containerRef.current) {
-              gsap.to(containerRef.current, {
-                autoAlpha: 0,
-                y: -15,
-                duration: 0.25,
-                ease: "power2.in",
-              });
-            }
-          }
-        }
-      );
+      if (isOpen) {
+        gsap.fromTo(
+          containerRef.current,
+          { autoAlpha: 0, y: -15 },
+          { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power3.out' }
+        );
+      } else if (containerRef.current) {
+        gsap.to(containerRef.current, {
+          autoAlpha: 0,
+          y: -10,
+          duration: 0.2,
+          ease: 'power2.in',
+        });
+      }
     },
     { dependencies: [isOpen], scope: containerRef }
   );
@@ -59,45 +33,41 @@ export default function CategoryDrawer({ isOpen, onClose, onSelectCategory }) {
     <div
       ref={containerRef}
       onMouseLeave={onClose}
-      className="w-full bg-[#0a0a0a] text-white border-b border-zinc-800 shadow-2xl z-40 transition-all duration-300 relative"
+      className="w-full bg-[#0a0a0a] text-white border-b border-white/10 shadow-2xl z-40 relative select-none"
       data-category-drawer
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-        
-        {/* Drawer Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-purple-500 animate-ping"></span>
-            <span className="text-xs uppercase tracking-widest font-bold text-zinc-300">
-              Browse Categories
+      <div className="shell py-6">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-5">
+          <div className="flex items-center gap-2.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-silver-300"></span>
+            <span className="label text-xs text-silver-200">
+              Browse Collections
             </span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <button
               onClick={() => {
                 onSelectCategory(null);
                 onClose();
               }}
-              className="text-xs text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1 transition-colors"
+              className="label text-xs text-silver-300 hover:text-white flex items-center gap-2 transition-colors"
             >
-              <span>View All Catalog</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>View All Pieces</span>
+              <ArrowRightIcon width={13} height={13} />
             </button>
             <button
               onClick={onClose}
-              className="p-1 text-zinc-400 hover:text-white transition-colors rounded hover:bg-zinc-800"
-              aria-label="Close categories drawer"
+              className="p-1 text-neutral-400 hover:text-white transition-colors"
+              aria-label="Close categories"
             >
-              <X className="w-4 h-4" />
+              <CloseIcon width={16} height={16} />
             </button>
           </div>
         </div>
 
-        {/* Horizontal Category List (As seen in Cat animation.mp4) */}
-        <div
-          ref={cardsRef}
-          className="flex items-center gap-3.5 sm:gap-4 overflow-x-auto pb-3 pt-1 no-scrollbar scroll-smooth"
-        >
+        {/* 3 Menswear Categories */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {CATEGORIES.map((cat) => (
             <button
               key={cat.id}
@@ -105,20 +75,26 @@ export default function CategoryDrawer({ isOpen, onClose, onSelectCategory }) {
                 onSelectCategory(cat.slug);
                 onClose();
               }}
-              className="category-card-item flex-shrink-0 group focus:outline-none text-left"
+              className="group text-left p-3 border border-white/10 hover:border-silver-400 bg-[#131313] transition-all flex items-center gap-4 cursor-pointer"
             >
-              {/* Rounded Dark Tile */}
-              <div className="w-24 sm:w-28 h-24 sm:h-28 rounded-2xl bg-[#18181b] border border-zinc-800 group-hover:border-purple-500 overflow-hidden relative p-2 flex flex-col items-center justify-center transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_8px_20px_rgba(139,36,214,0.25)]">
+              <div className="w-16 h-20 overflow-hidden bg-neutral-900 shrink-0">
                 <img
                   src={cat.image}
                   alt={cat.name}
-                  className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover zoom-slow group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-2xl pointer-events-none" />
-                <span className="absolute bottom-1.5 px-1 text-[11px] font-semibold text-white tracking-tight drop-shadow-md text-center line-clamp-1 w-full">
-                  {cat.shortName}
+              </div>
+              <div className="min-w-0">
+                <span className="label text-[9px] text-silver-400 block mb-1">
+                  Collection
                 </span>
+                <h4 className="font-display text-lg text-white group-hover:text-silver-200 font-light truncate">
+                  {cat.name}
+                </h4>
+                <p className="text-xs text-neutral-400 mt-1 line-clamp-1">
+                  {cat.count} curated styles
+                </p>
               </div>
             </button>
           ))}
