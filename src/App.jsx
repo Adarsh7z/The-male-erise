@@ -1,25 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import Preloader from './components/layout/Preloader';
-import MotionRoot from './components/motion/MotionRoot';
-import AnnouncementBar from './components/layout/AnnouncementBar';
-import Header from './components/layout/Header';
-import HeroCarousel from './components/home/HeroCarousel';
-import MarqueeBand from './components/home/MarqueeBand';
-import CategoryTiles from './components/home/CategoryTiles';
-import FeaturedRow from './components/home/FeaturedRow';
-import StoryBand from './components/home/StoryBand';
-import WhyShop from './components/home/WhyShop';
-import HowOrdering from './components/home/HowOrdering';
-import LookbookGrid from './components/home/LookbookGrid';
-import VisitStore from './components/home/VisitStore';
+import TopBar from './components/TopBar';
+import Navbar from './components/Navbar';
+import CategoryDrawer from './components/CategoryDrawer';
+import TrendingCategories from './components/TrendingCategories';
+import FeaturedProducts from './components/FeaturedProducts';
 import ShopView from './components/ShopView';
 import CategoryView from './components/CategoryView';
+import StoreLocation from './components/StoreLocation';
 import ProductModal from './components/ProductModal';
 import WishlistModal from './components/WishlistModal';
 import SearchModal from './components/SearchModal';
 import UserModal from './components/UserModal';
-import Footer from './components/layout/Footer';
+import Footer from './components/Footer';
 import FloatingCTAs from './components/FloatingCTAs';
+import { BRAND_INFO } from './data/products';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -27,8 +22,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home'); // 'home' | 'shop' | 'category'
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [selectedCategorySlug, setSelectedCategorySlug] = useState(null);
-
+  
   // Persisted Wishlist
   const [wishlist, setWishlist] = useState(() => {
     try {
@@ -70,8 +66,7 @@ export default function App() {
       const params = new URLSearchParams(window.location.search);
       const catParam = params.get('category') || params.get('section');
       if (catParam) {
-        const normalized =
-          catParam.toLowerCase() === 'coats' ? 'blazers' : catParam.toLowerCase();
+        const normalized = catParam.toLowerCase() === 'coats' ? 'blazers' : catParam.toLowerCase();
         setSelectedCategorySlug(normalized);
         setActiveTab('shop');
       }
@@ -92,77 +87,105 @@ export default function App() {
     const normalizedSlug = slug === 'coats' ? 'blazers' : slug;
     setSelectedCategorySlug(normalizedSlug);
     setActiveTab('shop');
+    setIsCategoryOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleNavigateTab = (tab) => {
-    setActiveTab(tab);
-    if (tab === 'home') {
-      setSelectedCategorySlug(null);
-    }
+  const handleNavigateToCategories = () => {
+    setActiveTab('category');
+    setIsCategoryOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavigateToShop = () => {
+    setSelectedCategorySlug(null);
+    setActiveTab('shop');
+    setIsCategoryOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-[#0a0a0a] font-sans antialiased selection:bg-[#0a0a0a] selection:text-white">
-      {/* 0. Intro Preloader (Session-cached, tap to skip) */}
-      <Preloader />
+    <div className="min-h-screen flex flex-col bg-white text-zinc-900 font-sans selection:bg-purple-100 selection:text-purple-900">
+      
+      {/* 1. Top Utility Header */}
+      <TopBar />
 
-      {/* 0.1 GSAP Scroll Choreography Manager */}
-      <MotionRoot dependencies={[activeTab]} />
-
-      {/* 1. Announcement Bar */}
-      <AnnouncementBar />
-
-      {/* 2. Sticky Header */}
-      <Header
+      {/* 2. Main Sticky Navigation (Responsive on Mobile and Desktop) */}
+      <Navbar
         activeTab={activeTab}
-        onNavigateTab={handleNavigateTab}
-        selectedCategorySlug={selectedCategorySlug}
-        onSelectCategory={handleSelectCategory}
-        onOpenSearch={() => setIsSearchOpen(true)}
+        setActiveTab={setActiveTab}
+        isCategoryOpen={isCategoryOpen}
+        setIsCategoryOpen={setIsCategoryOpen}
         onOpenWishlist={() => setIsWishlistOpen(true)}
+        onOpenSearch={() => setIsSearchOpen(true)}
         onOpenUser={() => setIsUserOpen(true)}
-        wishlistCount={wishlist.length}
       />
 
-      {/* 3. Main Views */}
+      {/* 3. Category Drawer ("Cat animation" below header) */}
+      <CategoryDrawer
+        isOpen={isCategoryOpen}
+        onClose={() => setIsCategoryOpen(false)}
+        onSelectCategory={handleSelectCategory}
+      />
+
+      {/* 4. Page Content based on Active Tab */}
       <main className="flex-1">
         {activeTab === 'home' && (
           <div>
-            {/* Hero Carousel */}
-            <HeroCarousel onSelectCategory={handleSelectCategory} />
+            {/* Trending Categories Section (Exact layout as media_1791450569581_6fb4d289.png: 2 cards on mobile) */}
+            <TrendingCategories
+              onSelectCategory={handleSelectCategory}
+              onNavigateToCategories={handleNavigateToCategories}
+            />
 
-            {/* Slow Endless Marquee Band */}
-            <MarqueeBand />
-
-            {/* Category Tiles (The Collections: Office Casuals, Kurta-Pyjama, Blazers) */}
-            <CategoryTiles onSelectCategory={handleSelectCategory} />
-
-            {/* Picked For You (Featured Products Rail / Grid) */}
-            <FeaturedRow
+            {/* Featured Products Section (Exact layout as Mobile-ui.mp4: 2 columns, WhatsApp buttons, NO Buy Now) */}
+            <FeaturedProducts
               wishlist={wishlist}
               onToggleWishlist={toggleWishlist}
               onQuickView={(product) => setQuickViewProduct(product)}
-              onNavigateToShop={() => handleNavigateTab('shop')}
+              onNavigateToShop={handleNavigateToShop}
             />
 
-            {/* Story Band (Inside the store, Bodakdev Ahmedabad) */}
-            <StoryBand />
+            {/* Atelier Highlights Banner */}
+            <section className="py-4 sm:py-6 px-3 sm:px-6 max-w-7xl mx-auto">
+              <div className="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-5 border border-zinc-800 shadow-lg relative overflow-hidden">
+                <div className="space-y-1.5 text-center md:text-left z-10">
+                  <div className="inline-flex items-center gap-1.5 bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] sm:text-xs font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    <Sparkles className="w-3 h-3" />
+                    <span>Male Order Erise Atelier</span>
+                  </div>
+                  <h3 className="text-lg sm:text-2xl font-extrabold tracking-tight font-sans">
+                    Office Casuals • Festive Kurta-Pyjamas • Tailored Blazers
+                  </h3>
+                  <p className="text-xs text-zinc-400 max-w-xl">
+                    Every piece is crafted with exquisite tailoring and premium textiles. Inquire directly on WhatsApp for customized fittings.
+                  </p>
+                </div>
 
-            {/* Why Shop With Us (Honest fabrics, Fits you properly, Real store) */}
-            <WhyShop />
+                <div className="z-10 flex items-center gap-2 sm:gap-3 w-full md:w-auto justify-center">
+                  <button
+                    onClick={handleNavigateToShop}
+                    className="flex-1 md:flex-none bg-white hover:bg-zinc-100 text-black text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-md inline-flex items-center justify-center gap-1.5"
+                  >
+                    <span>Browse Shop</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                  <a
+                    href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${encodeURIComponent(
+                      `Hi, I would like to inquire about customized tailoring for Office casuals, Kurta-pyjama, and Blazers at ${BRAND_INFO.name}.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 md:flex-none bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-md inline-flex items-center justify-center gap-1.5"
+                  >
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </section>
 
-            {/* How Ordering Works (3 steps, WhatsApp direct order) */}
-            <HowOrdering />
-
-            {/* Editorial Lookbook Grid */}
-            <LookbookGrid
-              onQuickView={(product) => setQuickViewProduct(product)}
-            />
-
-            {/* Visit The Store & Embedded Google Map */}
-            <VisitStore />
+            {/* Store Location Map & Direct Directions (With the user's provided iframe embed & Google Maps link) */}
+            <StoreLocation />
           </div>
         )}
 
@@ -177,31 +200,29 @@ export default function App() {
         )}
 
         {activeTab === 'category' && (
-          <CategoryView onSelectCategory={handleSelectCategory} />
+          <CategoryView
+            onSelectCategory={handleSelectCategory}
+          />
         )}
       </main>
 
-      {/* 4. Footer */}
+      {/* 5. Footer */}
       <Footer
-        onNavigate={(tab, catSlug) => {
-          if (catSlug) {
-            handleSelectCategory(catSlug);
-          } else {
-            handleNavigateTab(tab);
-          }
+        onNavigate={(tab) => {
+          setActiveTab(tab);
+          setIsCategoryOpen(false);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
       />
 
-      {/* 5. Floating CTAs: WhatsApp (pulse) on right, Google Maps Directions on left */}
+      {/* 6. Dual Floating CTAs (Google Maps on bottom-left, WhatsApp on bottom-right, logo only!) */}
       <FloatingCTAs />
 
-      {/* 6. Interactive Modals */}
+      {/* 7. Interactive Modals */}
       <ProductModal
         product={quickViewProduct}
         onClose={() => setQuickViewProduct(null)}
-        isWishlisted={
-          quickViewProduct ? wishlist.includes(quickViewProduct.id) : false
-        }
+        isWishlisted={quickViewProduct ? wishlist.includes(quickViewProduct.id) : false}
         onToggleWishlist={toggleWishlist}
       />
 
@@ -219,7 +240,10 @@ export default function App() {
         onSelectProduct={(product) => setQuickViewProduct(product)}
       />
 
-      <UserModal isOpen={isUserOpen} onClose={() => setIsUserOpen(false)} />
+      <UserModal
+        isOpen={isUserOpen}
+        onClose={() => setIsUserOpen(false)}
+      />
     </div>
   );
 }

@@ -1,77 +1,53 @@
 import React from 'react';
-import { CloseIcon, WhatsAppIcon, ShieldIcon, TruckIcon } from './ui/Icons';
-import Logo from './ui/Logo';
+import { X, MessageCircle, Package, RefreshCw, Shield, HelpCircle, Phone } from 'lucide-react';
 import { BRAND_INFO } from '../data/products';
 
 export default function UserModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div
-      onClick={onClose}
-      className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 select-none animate-fadeIn"
-    >
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
       <div
-        className="bg-[#0a0a0a] text-white border border-silver-500/30 max-w-md w-full p-6 sm:p-7 shadow-2xl relative"
+        className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-zinc-200 relative animate-fade-in"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-neutral-400 hover:text-white p-1"
-          aria-label="Close concierge"
+          className="absolute top-4 right-4 text-zinc-400 hover:text-black p-1 rounded-full hover:bg-zinc-100"
         >
-          <CloseIcon width={16} height={16} />
+          <X className="w-5 h-5" />
         </button>
 
-        <div className="text-center mb-6 pt-2">
-          <Logo tone="silver" size="md" className="mx-auto mb-4" />
-          <h3 className="type-silver-dark font-display text-xl font-light">
-            Bespoke Concierge
+        <div className="text-center mb-6">
+          <div className="w-14 h-14 bg-black text-white rounded-2xl flex items-center justify-center mx-auto mb-3 font-serif font-bold text-xl shadow-md">
+            MO
+          </div>
+          <h3 className="text-lg font-bold text-zinc-900 tracking-tight">
+            Male Order Erise Concierge
           </h3>
-          <p className="t-body text-xs text-neutral-400 mt-1">
-            Personalized menswear styling & direct order assistance
+          <p className="text-xs text-zinc-500 mt-0.5">
+            Personalized menswear styling & order support
           </p>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           <a
             href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${encodeURIComponent(
-              `Hi ${BRAND_INFO.shortName}, I want to speak with a personal menswear stylist regarding sizing and recommendations.`
+              `Hi ${BRAND_INFO.shortName}, I want to speak with a personal menswear stylist about sizing and recommendations.`
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3.5 p-3.5 bg-[#131313] hover:bg-[#1a1a1a] border border-white/10 hover:border-silver-400/50 transition-colors group"
+            className="flex items-center gap-3 p-3 bg-zinc-50 hover:bg-emerald-50 hover:text-emerald-900 border border-zinc-200 rounded-2xl transition-colors group"
           >
-            <div className="w-9 h-9 border border-white/20 bg-black flex items-center justify-center text-white shrink-0">
-              <WhatsAppIcon width={16} height={16} />
+            <div className="w-9 h-9 rounded-xl bg-[#25D366] text-white flex items-center justify-center shadow-xs">
+              <MessageCircle className="w-4 h-4 fill-white" />
             </div>
             <div>
-              <h4 className="text-xs font-medium text-white group-hover:text-silver-300">
-                Styling & Sizing Consultation
+              <h4 className="text-xs font-bold text-zinc-900 group-hover:text-emerald-950">
+                Chat with VIP Stylist
               </h4>
-              <p className="text-[11px] text-neutral-400 mt-0.5">
-                Real-time measurements and recommendations
-              </p>
-            </div>
-          </a>
-
-          <a
-            href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${encodeURIComponent(
-              `Hi ${BRAND_INFO.shortName}, I would like to inquire about custom alterations and fittings.`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3.5 p-3.5 bg-[#131313] hover:bg-[#1a1a1a] border border-white/10 hover:border-silver-400/50 transition-colors group"
-          >
-            <div className="w-9 h-9 border border-white/20 bg-black flex items-center justify-center text-white shrink-0">
-              <ShieldIcon width={16} height={16} />
-            </div>
-            <div>
-              <h4 className="text-xs font-medium text-white group-hover:text-silver-300">
-                Custom Alterations & Fit
-              </h4>
-              <p className="text-[11px] text-neutral-400 mt-0.5">
-                Bespoke waist, sleeve & length customization
+              <p className="text-[11px] text-zinc-500">
+                Get real-time sizing advice & custom styling
               </p>
             </div>
           </a>
@@ -82,30 +58,45 @@ export default function UserModal({ isOpen, onClose }) {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3.5 p-3.5 bg-[#131313] hover:bg-[#1a1a1a] border border-white/10 hover:border-silver-400/50 transition-colors group"
+            className="flex items-center gap-3 p-3 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-2xl transition-colors group"
           >
-            <div className="w-9 h-9 border border-white/20 bg-black flex items-center justify-center text-white shrink-0">
-              <TruckIcon width={16} height={16} />
+            <div className="w-9 h-9 rounded-xl bg-zinc-900 text-white flex items-center justify-center shadow-xs">
+              <Package className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs font-medium text-white group-hover:text-silver-300">
+              <h4 className="text-xs font-bold text-zinc-900">
                 Track Existing Order
               </h4>
-              <p className="text-[11px] text-neutral-400 mt-0.5">
-                Check express dispatch and delivery status
+              <p className="text-[11px] text-zinc-500">
+                Check dispatch status & tracking ID
+              </p>
+            </div>
+          </a>
+
+          <a
+            href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${encodeURIComponent(
+              `Hi ${BRAND_INFO.shortName}, I would like to inquire about custom tailoring and sizing adjustments for my order.`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 p-3 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-2xl transition-colors group"
+          >
+            <div className="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center shadow-xs">
+              <Shield className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 className="text-xs font-bold text-zinc-900">
+                Custom Tailoring & Fittings
+              </h4>
+              <p className="text-[11px] text-zinc-500">
+                Bespoke sizing and tailored adjustments
               </p>
             </div>
           </a>
         </div>
 
-        <div className="mt-6 pt-4 border-t border-white/10 text-center text-xs text-neutral-400">
-          WhatsApp Helpline:{' '}
-          <a
-            href={`tel:${BRAND_INFO.whatsappNumber}`}
-            className="font-medium text-white underline ml-1"
-          >
-            {BRAND_INFO.phoneDisplay}
-          </a>
+        <div className="mt-6 pt-4 border-t border-zinc-100 text-center text-[11px] text-zinc-400">
+          WhatsApp Helpline: <span className="font-semibold text-zinc-700">{BRAND_INFO.phoneDisplay}</span>
         </div>
       </div>
     </div>

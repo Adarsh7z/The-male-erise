@@ -7,28 +7,20 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Cormorant Garamond"', 'Times New Roman', 'serif'],
-        serif: ['"Cormorant Garamond"', 'Times New Roman', 'serif'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['"Lobster Two"', '"Playfair Display"', 'cursive', 'serif'],
+        serif: ['"Playfair Display"', 'serif'],
       },
       colors: {
-        ink: '#0a0a0a',
-        'ink-2': '#131313',
-        paper: '#ffffff',
-        bone: '#f5f5f3',
-        silver: {
-          100: '#e8e8e8',
-          200: '#d5d7d9',
-          300: '#a9abae',
-          400: '#8a8c90',
-          500: '#6e7074',
-        },
-        muted: '#5c5e61',
-        'muted-dark': '#a9abae',
-      },
-      transitionTimingFunction: {
-        silk: 'cubic-bezier(0.22, 1, 0.36, 1)',
-      },
+        brand: {
+          purple: '#8b24d6',
+          purpleHover: '#7a1ec0',
+          whatsapp: '#25D366',
+          whatsappHover: '#20bd5a',
+          dark: '#111111',
+          card: '#18181b',
+        }
+      }
     },
   },
   plugins: [],

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CloseIcon, HeartIcon, WhatsAppIcon, TrashIcon } from './ui/Icons';
+import { X, Trash2, MessageCircle, Heart, ArrowRight } from 'lucide-react';
 import { PRODUCTS, BRAND_INFO } from '../data/products';
 
 export default function WishlistModal({
@@ -7,7 +7,7 @@ export default function WishlistModal({
   onClose,
   wishlistIds,
   onRemoveFromWishlist,
-  onOpenProduct,
+  onOpenProduct
 }) {
   if (!isOpen) return null;
 
@@ -15,70 +15,59 @@ export default function WishlistModal({
 
   const handleInquiryAll = () => {
     if (wishlistedProducts.length === 0) return;
-    const names = wishlistedProducts
-      .map((p) => `• ${p.name} (₹${p.price.toLocaleString()})`)
-      .join('\n');
+    const names = wishlistedProducts.map((p) => `• ${p.name} (₹${p.price.toLocaleString()})`).join('\n');
     const message = encodeURIComponent(
       `Hi, I'd like to enquire about these saved items from ${BRAND_INFO.name}:\n${names}\n\nAre they available?`
     );
-    window.open(
-      `https://wa.me/${BRAND_INFO.whatsappNumber}?text=${message}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
+    window.open(`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <div
-      onClick={onClose}
-      className="fixed inset-0 z-[100] overflow-hidden bg-black/75 backdrop-blur-xs flex justify-end select-none animate-fadeIn"
-    >
+    <div className="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-xs flex justify-end">
       <div
-        className="w-full max-w-md bg-[#0a0a0a] text-white h-full border-l border-white/10 shadow-2xl flex flex-col justify-between"
+        className="w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between animate-slide-left"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="p-5 border-b border-white/10 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <HeartIcon width={16} height={16} className="text-red-500 fill-current" />
-            <h2 className="label text-xs text-white">
-              Saved Pieces ({wishlistedProducts.length})
+        {/* Drawer Header */}
+        <div className="p-4 sm:p-5 border-b border-zinc-200 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Heart className="w-5 h-5 text-red-500 fill-current" />
+            <h2 className="text-base font-bold text-zinc-900 tracking-tight">
+              My Saved Wishlist ({wishlistedProducts.length})
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-neutral-400 hover:text-white"
-            aria-label="Close saved pieces"
+            className="p-1.5 text-zinc-400 hover:text-black rounded-lg hover:bg-zinc-100 transition-colors"
+            aria-label="Close wishlist"
           >
-            <CloseIcon width={18} height={18} />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Content list */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+        {/* Content List */}
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
           {wishlistedProducts.length === 0 ? (
-            <div className="py-24 text-center space-y-4">
-              <div className="w-14 h-14 rounded-full border border-white/10 text-neutral-400 flex items-center justify-center mx-auto">
-                <HeartIcon width={22} height={22} />
+            <div className="py-20 text-center space-y-3">
+              <div className="w-16 h-16 rounded-full bg-zinc-100 text-zinc-400 flex items-center justify-center mx-auto">
+                <Heart className="w-8 h-8 stroke-[1.5]" />
               </div>
-              <p className="type-silver font-display text-2xl font-light">
-                Your wishlist is empty
-              </p>
-              <p className="t-body text-xs text-neutral-400 max-w-xs mx-auto">
-                Explore our menswear collections and tap the heart icon on any piece you wish to save.
+              <p className="text-base font-semibold text-zinc-800">Your wishlist is empty</p>
+              <p className="text-xs text-zinc-500 max-w-xs mx-auto">
+                Explore the Male Order Erise collection and tap the heart icon on any piece you love.
               </p>
               <button
                 onClick={onClose}
-                className="btn btn-paper mt-3 text-xs"
+                className="mt-2 bg-black text-white text-xs font-semibold px-5 py-2.5 rounded-xl hover:bg-zinc-800"
               >
-                Browse collections
+                Start Exploring
               </button>
             </div>
           ) : (
             wishlistedProducts.map((prod) => (
               <div
                 key={prod.id}
-                className="flex gap-3.5 bg-[#131313] border border-white/10 p-3.5 hover:border-silver-400/40 transition-colors"
+                className="flex gap-3 bg-zinc-50 border border-zinc-200/80 rounded-2xl p-3 hover:border-zinc-300 transition-colors"
               >
                 <img
                   src={prod.images[0]}
@@ -87,51 +76,48 @@ export default function WishlistModal({
                     onClose();
                     onOpenProduct(prod);
                   }}
-                  className="w-20 h-24 object-cover cursor-pointer bg-neutral-900 border border-white/5"
+                  className="w-20 h-20 object-cover rounded-xl cursor-pointer bg-white"
                 />
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-start justify-between">
                       <h4
                         onClick={() => {
                           onClose();
                           onOpenProduct(prod);
                         }}
-                        className="text-xs font-normal text-white hover:text-silver-300 cursor-pointer line-clamp-1"
+                        className="text-xs font-semibold text-zinc-900 hover:text-purple-700 cursor-pointer line-clamp-1"
                       >
                         {prod.name}
                       </h4>
                       <button
                         onClick={() => onRemoveFromWishlist(prod.id)}
-                        className="text-neutral-500 hover:text-red-400 p-0.5"
+                        className="text-zinc-400 hover:text-red-500 p-1"
                         title="Remove from wishlist"
                       >
-                        <TrashIcon width={14} height={14} />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
-
                     <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-xs font-semibold text-white">
+                      <span className="text-xs font-bold text-zinc-900">
                         ₹{prod.price.toLocaleString()}
                       </span>
-                      {prod.originalPrice && prod.originalPrice > prod.price && (
-                        <span className="text-[10px] text-neutral-500 line-through">
-                          ₹{prod.originalPrice.toLocaleString()}
-                        </span>
-                      )}
+                      <span className="text-[10px] text-zinc-400 line-through">
+                        ₹{prod.originalPrice.toLocaleString()}
+                      </span>
                     </div>
                   </div>
 
-                  {/* WhatsApp button */}
+                  {/* Individual WhatsApp button */}
                   <a
                     href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${encodeURIComponent(
                       `Hi, I'd like to enquire about ${prod.name} (₹${prod.price.toLocaleString()}) from ${BRAND_INFO.name}. Is it available?`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 py-1.5 px-2.5 border border-white/15 bg-white/5 hover:bg-white hover:text-black text-white text-[10px] font-medium flex items-center justify-center gap-1.5 transition-colors"
+                    className="inline-flex items-center justify-center gap-1.5 text-[11px] font-semibold text-white bg-[#25D366] hover:bg-[#20bd5a] py-1.5 px-3 rounded-lg mt-2 shadow-xs"
                   >
-                    <WhatsAppIcon width={12} height={12} />
+                    <MessageCircle className="w-3.5 h-3.5 fill-white" />
                     <span>Inquiry on WhatsApp</span>
                   </a>
                 </div>
@@ -142,13 +128,13 @@ export default function WishlistModal({
 
         {/* Footer actions */}
         {wishlistedProducts.length > 0 && (
-          <div className="p-4 border-t border-white/10 bg-[#0d0d0d]">
+          <div className="p-4 border-t border-zinc-200 bg-zinc-50 space-y-2">
             <button
               onClick={handleInquiryAll}
-              className="btn btn-paper w-full text-xs flex items-center justify-center gap-2"
+              className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all"
             >
-              <WhatsAppIcon width={14} height={14} />
-              <span>Inquire All on WhatsApp</span>
+              <MessageCircle className="w-4 h-4 fill-white" />
+              <span>Inquire All Saved Items on WhatsApp</span>
             </button>
           </div>
         )}
