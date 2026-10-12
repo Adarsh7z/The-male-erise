@@ -19,7 +19,7 @@ export default function UserModal({ isOpen, onClose }) {
         </button>
 
         <div className="text-center mb-6">
-          <div className="w-14 h-14 bg-black text-white rounded-2xl flex items-center justify-center mx-auto mb-3 font-serif font-bold text-xl shadow-md">
+          <div className="w-14 h-14 bg-black text-white rounded-2xl flex items-center justify-center mx-auto mb-3 font-display font-bold text-xl shadow-md">
             MO
           </div>
           <h3 className="text-lg font-bold text-zinc-900 tracking-tight">

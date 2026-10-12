@@ -17,7 +17,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: 'sans-serif', textAlign: 'center', backgroundColor: '#000', color: '#fff' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: 'var(--font-primary), sans-serif', textAlign: 'center', backgroundColor: '#000', color: '#fff' }}>
           <div style={{ width: '60px', height: '60px', backgroundColor: '#fff', color: '#000', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '24px', marginBottom: '16px' }}>MO</div>
           <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '8px' }}>Male Order Erise</h2>
           <p style={{ color: '#a1a1aa', fontSize: '14px', maxWidth: '400px', marginBottom: '20px' }}>Loading experience... Please refresh if the page does not reload automatically.</p>

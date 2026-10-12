@@ -2,16 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Absans';
+  src: url('/fonts/Absans-Regular.woff2') format('woff2'),
+       url('/fonts/Absans-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Absans-Fallback';
+  src: local('Arial');
+  ascent-override: 80%;
+  descent-override: 20%;
+  line-gap-override: 4%;
+  size-adjust: 100%;
+}
+
+:root {
+  --font-primary: 'Absans', 'Absans-Fallback', sans-serif;
+  --font-display: 'Absans', 'Absans-Fallback', sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-fallback: 'Absans-Fallback';
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga" 1, "case" 1;
+    font-variant-numeric: proportional-nums;
   }
 
   body {
     overflow-x: hidden;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-primary);
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Form controls inherit typography */
+  button, input, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+  }
+
+  ::placeholder {
+    font-family: inherit;
+  }
+
+  /* Editorial Headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  /* Refined Body Reading */
+  p {
+    line-height: 1.65;
+    text-wrap: pretty;
   }
 
   /* GSAP rule 2.6: Prevent Flash of Unstyled Content (FOUC) */
@@ -20,11 +75,35 @@
   }
 }
 
-/* Custom font styling for the distinctive title style seen in screenshots */
+/* Custom display title styling with Absans font */
 .font-display-title {
-  font-family: 'Lobster Two', 'Playfair Display', cursive, serif;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  text-wrap: balance;
+  font-feature-settings: "liga" 1, "case" 1, "ss04" 1;
+}
+
+/* Typography refinements */
+.text-fluid-hero {
+  font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.text-fluid-title {
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.prose-measure {
+  max-width: 65ch;
 }
 
 /* =========================================================

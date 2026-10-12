@@ -7,9 +7,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
-        display: ['"Lobster Two"', '"Playfair Display"', 'cursive', 'serif'],
-        serif: ['"Playfair Display"', 'serif'],
+        sans: ['var(--font-primary)', 'var(--font-fallback)', 'sans-serif'],
+        display: ['var(--font-display)', 'var(--font-fallback)', 'sans-serif'],
+        serif: ['var(--font-display)', 'var(--font-fallback)', 'sans-serif'],
+        body: ['var(--font-body)', 'sans-serif'],
       },
       colors: {
         brand: {

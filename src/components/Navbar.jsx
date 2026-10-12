@@ -56,7 +56,7 @@ export default function Navbar({
                 aria-label="Male Order Erise Home"
               >
                 <div className="w-9 h-9 sm:w-11 sm:h-11 bg-white rounded-md sm:rounded-lg flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
-                  <span className="font-serif font-black text-black text-base sm:text-xl tracking-tighter">
+                  <span className="font-display font-bold text-black text-base sm:text-xl tracking-tighter">
                     MO
                   </span>
                 </div>
@@ -170,7 +170,7 @@ export default function Navbar({
               <div className="flex items-center justify-between pb-6 mb-6 border-b border-zinc-800">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center">
-                    <span className="font-serif font-black text-black text-sm">MO</span>
+                    <span className="font-display font-bold text-black text-sm">MO</span>
                   </div>
                   <span className="text-xs font-bold uppercase tracking-wider text-white">
                     Male Order

@@ -35,7 +35,7 @@ export default function Footer({ onNavigate }) {
 
           <div className="flex items-center gap-4 justify-center sm:justify-start">
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-purple-400 shrink-0">
-              <span className="font-serif font-black text-sm text-purple-400">MO</span>
+              <span className="font-display font-bold text-sm text-purple-400">MO</span>
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-white">Handcrafted Tailoring</h4>
@@ -61,7 +61,7 @@ export default function Footer({ onNavigate }) {
           <div className="lg:col-span-2 space-y-3.5">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-lg flex items-center justify-center">
-                <span className="font-serif font-black text-black text-lg tracking-tighter">MO</span>
+                <span className="font-display font-bold text-black text-lg tracking-tighter">MO</span>
               </div>
               <div>
                 <span className="block font-bold tracking-wider text-sm text-white uppercase font-sans">
