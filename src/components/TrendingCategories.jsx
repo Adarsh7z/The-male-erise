@@ -81,22 +81,24 @@ export default function TrendingCategories({ onSelectCategory, onNavigateToCateg
       </div>
 
       {/* Carousel Container matching Screenshot: 2 cards side-by-side on mobile with gloss black side buttons */}
-      <div className="relative px-3 sm:px-8">
+      <div className="relative px-2 sm:px-6">
         
         {/* Left Arrow Button (Gloss Black Design with White Icon) */}
-        <button
-          onClick={handlePrev}
-          disabled={currentIndex === 0}
-          data-magnetic
-          data-interactive-btn
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-11 sm:w-11 sm:h-12 rounded-xl sm:rounded-2xl btn-gloss-nav flex items-center justify-center transition-all"
-          aria-label="Previous categories"
-        >
-          <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 stroke-[2.5] text-white" />
-        </button>
+        <div className="absolute left-0 sm:left-1 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+          <button
+            onClick={handlePrev}
+            disabled={currentIndex === 0}
+            data-magnetic
+            data-interactive-btn
+            className="w-8 h-11 sm:w-11 sm:h-12 rounded-xl sm:rounded-2xl btn-gloss-nav flex items-center justify-center transition-all cursor-pointer disabled:cursor-not-allowed"
+            aria-label="Previous categories"
+          >
+            <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 stroke-[2.5] text-white" />
+          </button>
+        </div>
 
         {/* Carousel Track */}
-        <div className="overflow-hidden mx-5 sm:mx-8 py-2">
+        <div className="overflow-hidden mx-8 sm:mx-14 py-2">
           <div
             className="flex gap-3 sm:gap-6 transition-transform duration-400 ease-out"
             style={{
@@ -132,16 +134,18 @@ export default function TrendingCategories({ onSelectCategory, onNavigateToCateg
         </div>
 
         {/* Right Arrow Button (Gloss Black Design with White Icon) */}
-        <button
-          onClick={handleNext}
-          disabled={currentIndex >= maxMobileIndex}
-          data-magnetic
-          data-interactive-btn
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-11 sm:w-11 sm:h-12 rounded-xl sm:rounded-2xl btn-gloss-nav flex items-center justify-center transition-all"
-          aria-label="Next categories"
-        >
-          <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 stroke-[2.5] text-white" />
-        </button>
+        <div className="absolute right-0 sm:right-1 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+          <button
+            onClick={handleNext}
+            disabled={currentIndex >= maxMobileIndex}
+            data-magnetic
+            data-interactive-btn
+            className="w-8 h-11 sm:w-11 sm:h-12 rounded-xl sm:rounded-2xl btn-gloss-nav flex items-center justify-center transition-all cursor-pointer disabled:cursor-not-allowed"
+            aria-label="Next categories"
+          >
+            <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 stroke-[2.5] text-white" />
+          </button>
+        </div>
       </div>
 
       {/* "View All Categories ↗" Gloss Black Button */}
