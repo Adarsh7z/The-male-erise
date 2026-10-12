@@ -17,10 +17,12 @@ import { BRAND_INFO } from './data/products';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAPInteractions } from './hooks/useGSAPInteractions';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
+  useGSAPInteractions();
   const [activeTab, setActiveTab] = useState('home'); // 'home' | 'shop' | 'category'
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [selectedCategorySlug, setSelectedCategorySlug] = useState(null);
@@ -105,7 +107,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-zinc-900 font-sans selection:bg-purple-100 selection:text-purple-900">
+    <div className="min-h-screen flex flex-col bg-white text-zinc-900 font-sans selection:bg-zinc-900 selection:text-white">
       
       {/* 1. Top Utility Header */}
       <TopBar />
@@ -150,9 +152,9 @@ export default function App() {
             <section className="py-4 sm:py-6 px-3 sm:px-6 max-w-7xl mx-auto">
               <div className="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-5 border border-zinc-800 shadow-lg relative overflow-hidden">
                 <div className="space-y-1.5 text-center md:text-left z-10">
-                  <div className="inline-flex items-center gap-1.5 bg-purple-500/20 text-purple-300 border border-purple-500/30 text-[10px] sm:text-xs font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                    <Sparkles className="w-3 h-3" />
-                    <span>Male Order Erise Atelier</span>
+                  <div className="inline-flex items-center gap-1.5 badge-gloss-black text-white text-[10px] sm:text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                    <Sparkles className="w-3 h-3 text-white" />
+                    <span className="text-white">Male Order Erise Atelier</span>
                   </div>
                   <h3 className="text-lg sm:text-2xl font-extrabold tracking-tight font-sans">
                     Office Casuals • Festive Kurta-Pyjamas • Tailored Blazers
@@ -165,6 +167,8 @@ export default function App() {
                 <div className="z-10 flex items-center gap-2 sm:gap-3 w-full md:w-auto justify-center">
                   <button
                     onClick={handleNavigateToShop}
+                    data-magnetic
+                    data-interactive-btn
                     className="flex-1 md:flex-none bg-white hover:bg-zinc-100 text-black text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-md inline-flex items-center justify-center gap-1.5"
                   >
                     <span>Browse Shop</span>
@@ -176,6 +180,8 @@ export default function App() {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    data-magnetic
+                    data-interactive-btn
                     className="flex-1 md:flex-none bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-md inline-flex items-center justify-center gap-1.5"
                   >
                     <span>WhatsApp</span>

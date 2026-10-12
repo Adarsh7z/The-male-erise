@@ -97,7 +97,7 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }) {
                     className="w-14 h-14 object-cover rounded-xl bg-zinc-100"
                   />
                   <div>
-                    <h4 className="text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-purple-700 transition-colors">
+                    <h4 className="text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-black transition-colors">
                       {product.name}
                     </h4>
                     <p className="text-[11px] text-zinc-400 font-medium">

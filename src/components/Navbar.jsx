@@ -113,7 +113,7 @@ export default function Navbar({
                 CATEGORY
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isCategoryOpen ? 'rotate-180' : ''}`} />
                 {(isCategoryOpen || activeTab === 'category') && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-500 rounded-full"></span>
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-white rounded-full"></span>
                 )}
               </button>
             </nav>
@@ -224,7 +224,7 @@ export default function Navbar({
                     setActiveTab('shop');
                     setMobileMenuOpen(false);
                   }}
-                  className="block text-xs text-zinc-300 hover:text-purple-400 py-1"
+                  className="block text-xs text-zinc-300 hover:text-white py-1 transition-colors"
                 >
                   • Office casuals
                 </button>
@@ -233,7 +233,7 @@ export default function Navbar({
                     setActiveTab('shop');
                     setMobileMenuOpen(false);
                   }}
-                  className="block text-xs text-zinc-300 hover:text-purple-400 py-1"
+                  className="block text-xs text-zinc-300 hover:text-white py-1 transition-colors"
                 >
                   • Kurta-pyjama
                 </button>
@@ -242,7 +242,7 @@ export default function Navbar({
                     setActiveTab('shop');
                     setMobileMenuOpen(false);
                   }}
-                  className="block text-xs text-zinc-300 hover:text-purple-400 py-1"
+                  className="block text-xs text-zinc-300 hover:text-white py-1 transition-colors"
                 >
                   • Blazers
                 </button>

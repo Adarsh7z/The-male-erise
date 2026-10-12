@@ -89,9 +89,9 @@ export default function ShopView({
   return (
     <div className="py-6 sm:py-10 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
-      {/* Mobile Top Controls: Search Bar & Dual Purple Buttons (Exact layout in Mobile-ui.mp4 at 00:07) */}
+      {/* Mobile Top Controls: Search Bar & Dual Gloss Black Action Buttons */}
       <div className="lg:hidden mb-5 space-y-2.5">
-        {/* Search Bar with Purple Button */}
+        {/* Search Bar with Gloss Black Button */}
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
             <input
@@ -99,34 +99,37 @@ export default function ShopView({
               placeholder="Search"
               value={productSearch}
               onChange={(e) => setProductSearch(e.target.value)}
-              className="w-full text-xs sm:text-sm pl-4 pr-3 py-2.5 bg-white border border-zinc-300 rounded-lg focus:outline-none focus:border-purple-600"
+              className="w-full text-xs sm:text-sm pl-4 pr-3 py-2.5 bg-white border border-zinc-300 rounded-lg focus:outline-none focus:border-zinc-900"
             />
           </div>
           <button
             onClick={() => {}}
-            className="bg-[#8b24d6] hover:bg-[#7a1ec0] text-white p-2.5 rounded-lg flex items-center justify-center shrink-0 shadow-sm"
+            data-interactive-btn
+            className="btn-gloss-black text-white p-2.5 rounded-lg flex items-center justify-center shrink-0 shadow-md transition-all"
             aria-label="Search"
           >
-            <Search className="w-5 h-5" />
+            <Search className="w-5 h-5 text-white" />
           </button>
         </div>
 
-        {/* Dual Purple Action Buttons: [Filter] and [Sort by] */}
+        {/* Dual Gloss Black Action Buttons: [Filter] and [Sort by] */}
         <div className="grid grid-cols-2 gap-2">
           <button
             onClick={() => setMobileFilterOpen(true)}
-            className="bg-[#8b24d6] hover:bg-[#7a1ec0] text-white text-xs font-semibold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all active:scale-98"
+            data-interactive-btn
+            className="btn-gloss-black text-white text-xs font-semibold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 shadow-md transition-all"
           >
-            <SlidersHorizontal className="w-3.5 h-3.5" />
-            <span>Filter {selectedCategories.length > 0 && `(${selectedCategories.length})`}</span>
+            <SlidersHorizontal className="w-3.5 h-3.5 text-white" />
+            <span className="text-white">Filter {selectedCategories.length > 0 && `(${selectedCategories.length})`}</span>
           </button>
 
           <button
             onClick={() => setMobileSortOpen(true)}
-            className="bg-[#8b24d6] hover:bg-[#7a1ec0] text-white text-xs font-semibold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 shadow-sm transition-all active:scale-98"
+            data-interactive-btn
+            className="btn-gloss-black text-white text-xs font-semibold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 shadow-md transition-all"
           >
-            <ArrowDownUp className="w-3.5 h-3.5" />
-            <span>Sort by</span>
+            <ArrowDownUp className="w-3.5 h-3.5 text-white" />
+            <span className="text-white">Sort by</span>
           </button>
         </div>
       </div>
@@ -184,7 +187,7 @@ export default function ShopView({
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => toggleCategory(cat.slug)}
-                          className="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 border-zinc-300 cursor-pointer"
+                          className="w-4 h-4 rounded accent-zinc-900 text-zinc-900 focus:ring-zinc-900 border-zinc-300 cursor-pointer"
                         />
                         <span className={`group-hover:translate-x-0.5 transition-transform ${isChecked ? 'font-bold text-zinc-900' : ''}`}>
                           {cat.name}
@@ -242,7 +245,7 @@ export default function ShopView({
                 step="500"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full accent-purple-600 cursor-pointer"
+                className="w-full accent-zinc-900 cursor-pointer"
               />
               <div className="flex justify-between text-[11px] text-zinc-400 mt-1 font-mono">
                 <span>₹1,000.00</span>
@@ -285,11 +288,11 @@ export default function ShopView({
                 return (
                   <span
                     key={slug}
-                    className="inline-flex items-center gap-1 bg-purple-50 text-purple-700 text-xs px-2.5 py-1 rounded-full font-medium"
+                    className="inline-flex items-center gap-1.5 badge-gloss-black text-white text-xs px-3 py-1 rounded-full font-medium shadow-xs"
                   >
-                    {cat?.name || slug}
+                    <span className="text-white">{cat?.name || slug}</span>
                     <X
-                      className="w-3 h-3 cursor-pointer hover:text-purple-900"
+                      className="w-3 h-3 cursor-pointer text-white hover:text-zinc-300"
                       onClick={() => toggleCategory(slug)}
                     />
                   </span>
@@ -349,7 +352,7 @@ export default function ShopView({
           <div className="w-full sm:max-w-md bg-white rounded-t-3xl sm:rounded-3xl p-5 max-h-[85vh] overflow-y-auto space-y-5 animate-slide-up">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-purple-700" />
+                <SlidersHorizontal className="w-4 h-4 text-zinc-900" />
                 <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-900">Filter By</h3>
               </div>
               <button onClick={() => setMobileFilterOpen(false)} className="p-1 text-zinc-500">
@@ -368,7 +371,7 @@ export default function ShopView({
                         type="checkbox"
                         checked={selectedCategories.includes(cat.slug)}
                         onChange={() => toggleCategory(cat.slug)}
-                        className="w-4 h-4 rounded text-purple-600"
+                        className="w-4 h-4 rounded accent-zinc-900 text-zinc-900"
                       />
                       <span className="font-medium">{cat.name}</span>
                     </div>
@@ -412,7 +415,7 @@ export default function ShopView({
                 step="500"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full accent-purple-600"
+                className="w-full accent-zinc-900"
               />
             </div>
 
@@ -426,7 +429,8 @@ export default function ShopView({
               </button>
               <button
                 onClick={() => setMobileFilterOpen(false)}
-                className="flex-1 bg-[#8b24d6] text-white font-semibold py-2.5 rounded-xl text-xs shadow-md"
+                data-interactive-btn
+                className="flex-1 btn-gloss-black text-white font-semibold py-2.5 rounded-xl text-xs shadow-md transition-all"
               >
                 Apply Filters
               </button>
@@ -459,7 +463,7 @@ export default function ShopView({
                     setMobileSortOpen(false);
                   }}
                   className={`w-full text-left py-2.5 px-3 rounded-xl text-xs font-semibold ${
-                    sortBy === opt.value ? 'bg-purple-50 text-purple-700 font-bold' : 'text-zinc-700 hover:bg-zinc-50'
+                    sortBy === opt.value ? 'btn-gloss-black text-white font-bold' : 'text-zinc-700 hover:bg-zinc-50'
                   }`}
                 >
                   {opt.label}

@@ -80,17 +80,19 @@ export default function TrendingCategories({ onSelectCategory, onNavigateToCateg
         </h2>
       </div>
 
-      {/* Carousel Container matching Screenshot: 2 cards side-by-side on mobile with purple side buttons */}
+      {/* Carousel Container matching Screenshot: 2 cards side-by-side on mobile with gloss black side buttons */}
       <div className="relative px-3 sm:px-8">
         
-        {/* Left Arrow Button (Purple as in reference) */}
+        {/* Left Arrow Button (Gloss Black Design with White Icon) */}
         <button
           onClick={handlePrev}
           disabled={currentIndex === 0}
-          className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 w-7 h-10 sm:w-10 sm:h-12 rounded-lg sm:rounded-xl bg-[#8b24d6] hover:bg-[#7a1ec0] text-white flex items-center justify-center shadow-md transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed`}
+          data-magnetic
+          data-interactive-btn
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-8 h-11 sm:w-11 sm:h-12 rounded-xl sm:rounded-2xl btn-gloss-nav flex items-center justify-center transition-all"
           aria-label="Previous categories"
         >
-          <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 stroke-[2.5]" />
+          <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 stroke-[2.5] text-white" />
         </button>
 
         {/* Carousel Track */}
@@ -121,7 +123,7 @@ export default function TrendingCategories({ onSelectCategory, onNavigateToCateg
                 </div>
 
                 {/* Category Caption Below Card */}
-                <span className="mt-2.5 sm:mt-3 text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-purple-700 transition-colors tracking-tight text-center">
+                <span className="mt-2.5 sm:mt-3 text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-black transition-colors tracking-tight text-center">
                   {cat.name}
                 </span>
               </div>
@@ -129,25 +131,29 @@ export default function TrendingCategories({ onSelectCategory, onNavigateToCateg
           </div>
         </div>
 
-        {/* Right Arrow Button (Purple as in reference) */}
+        {/* Right Arrow Button (Gloss Black Design with White Icon) */}
         <button
           onClick={handleNext}
           disabled={currentIndex >= maxMobileIndex}
-          className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 w-7 h-10 sm:w-10 sm:h-12 rounded-lg sm:rounded-xl bg-[#8b24d6] hover:bg-[#7a1ec0] text-white flex items-center justify-center shadow-md transition-all active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed`}
+          data-magnetic
+          data-interactive-btn
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-8 h-11 sm:w-11 sm:h-12 rounded-xl sm:rounded-2xl btn-gloss-nav flex items-center justify-center transition-all"
           aria-label="Next categories"
         >
-          <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 stroke-[2.5]" />
+          <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 stroke-[2.5] text-white" />
         </button>
       </div>
 
-      {/* "View All Categories ↗" Purple Button (Identical to reference screenshot) */}
+      {/* "View All Categories ↗" Gloss Black Button */}
       <div className="mt-7 sm:mt-10 text-center">
         <button
           onClick={onNavigateToCategories}
-          className="inline-flex items-center gap-2 bg-[#8b24d6] hover:bg-[#7a1ec0] text-white font-semibold text-xs sm:text-sm px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all active:scale-98"
+          data-magnetic
+          data-interactive-btn
+          className="inline-flex items-center gap-2 btn-gloss-black gloss-sheen text-white font-semibold text-xs sm:text-sm px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl shadow-lg transition-all"
         >
-          <span>View All Categories</span>
-          <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <span className="text-white">View All Categories</span>
+          <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
         </button>
       </div>
     </section>

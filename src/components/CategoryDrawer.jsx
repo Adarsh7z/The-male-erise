@@ -67,7 +67,7 @@ export default function CategoryDrawer({ isOpen, onClose, onSelectCategory }) {
         {/* Drawer Header */}
         <div className="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-purple-500 animate-ping"></span>
+            <span className="w-2 h-2 rounded-full bg-white animate-ping"></span>
             <span className="text-xs uppercase tracking-widest font-bold text-zinc-300">
               Browse Categories
             </span>
@@ -78,7 +78,7 @@ export default function CategoryDrawer({ isOpen, onClose, onSelectCategory }) {
                 onSelectCategory(null);
                 onClose();
               }}
-              className="text-xs text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1 transition-colors"
+              className="text-xs text-zinc-300 hover:text-white font-medium flex items-center gap-1 transition-colors"
             >
               <span>View All Catalog</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -108,7 +108,7 @@ export default function CategoryDrawer({ isOpen, onClose, onSelectCategory }) {
               className="category-card-item flex-shrink-0 group focus:outline-none text-left"
             >
               {/* Rounded Dark Tile */}
-              <div className="w-24 sm:w-28 h-24 sm:h-28 rounded-2xl bg-[#18181b] border border-zinc-800 group-hover:border-purple-500 overflow-hidden relative p-2 flex flex-col items-center justify-center transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_8px_20px_rgba(139,36,214,0.25)]">
+              <div className="w-24 sm:w-28 h-24 sm:h-28 rounded-2xl bg-[#18181b] border border-zinc-800 group-hover:border-white/50 overflow-hidden relative p-2 flex flex-col items-center justify-center transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_8px_25px_rgba(0,0,0,0.6)]">
                 <img
                   src={cat.image}
                   alt={cat.name}

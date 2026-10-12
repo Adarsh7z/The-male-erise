@@ -79,14 +79,14 @@ export default function CategoryView({ onSelectCategory }) {
               </div>
 
               {/* Hover arrow badge on desktop */}
-              <div className="hidden sm:flex absolute bottom-4 right-4 bg-purple-600 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
-                <ArrowRight className="w-4 h-4" />
+              <div className="hidden sm:flex absolute bottom-4 right-4 btn-gloss-black text-white p-2.5 rounded-full opacity-0 group-hover:opacity-100 transition-all shadow-lg">
+                <ArrowRight className="w-4 h-4 text-white" />
               </div>
             </div>
 
             {/* Category Caption Below Card */}
             <div className="mt-2.5 text-center">
-              <h3 className="text-xs sm:text-base font-semibold text-zinc-900 group-hover:text-purple-700 transition-colors tracking-tight">
+              <h3 className="text-xs sm:text-base font-semibold text-zinc-900 group-hover:text-black transition-colors tracking-tight">
                 {cat.name}
               </h3>
               <p className="text-[10px] sm:text-xs text-zinc-400 font-mono mt-0.5">

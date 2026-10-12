@@ -24,8 +24,8 @@ export default function Footer({ onNavigate }) {
         {/* Value Proposition Badges */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10 mb-10 border-b border-zinc-800 text-center sm:text-left">
           <div className="flex items-center gap-4 justify-center sm:justify-start">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-purple-400 shrink-0">
-              <Truck className="w-5 h-5 sm:w-6 sm:h-6" />
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl card-gloss-black flex items-center justify-center text-white shrink-0 shadow-sm">
+              <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-white">Free Express Shipping</h4>
@@ -34,8 +34,8 @@ export default function Footer({ onNavigate }) {
           </div>
 
           <div className="flex items-center gap-4 justify-center sm:justify-start">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-purple-400 shrink-0">
-              <span className="font-display font-bold text-sm text-purple-400">MO</span>
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl card-gloss-black flex items-center justify-center text-white shrink-0 shadow-sm">
+              <span className="font-display font-bold text-sm text-white">MO</span>
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-white">Handcrafted Tailoring</h4>
@@ -135,7 +135,7 @@ export default function Footer({ onNavigate }) {
               <li>
                 <a href={BRAND_INFO.googleMapsLink} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
                   <span>Store Directions</span>
-                  <ArrowRight className="w-3 h-3 text-purple-400" />
+                  <ArrowRight className="w-3 h-3 text-white" />
                 </a>
               </li>
               <li>
@@ -158,7 +158,7 @@ export default function Footer({ onNavigate }) {
               Stay updated on new collection drops for Office casuals, festive kurtas and blazers.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-2">
-              <div className="flex rounded-xl overflow-hidden border border-zinc-800 bg-zinc-950 focus-within:border-purple-500">
+              <div className="flex rounded-xl overflow-hidden border border-zinc-800 bg-zinc-950 focus-within:border-white/50 focus-within:ring-1 focus-within:ring-white/20">
                 <input
                   type="email"
                   value={emailInput}
@@ -169,10 +169,11 @@ export default function Footer({ onNavigate }) {
                 />
                 <button
                   type="submit"
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-3 flex items-center justify-center transition-colors"
+                  data-interactive-btn
+                  className="btn-gloss-black text-white px-3.5 flex items-center justify-center transition-all"
                   aria-label="Subscribe"
                 >
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </button>
               </div>
               {isSubscribed && (

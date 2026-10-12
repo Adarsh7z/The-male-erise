@@ -86,7 +86,7 @@ export default function WishlistModal({
                           onClose();
                           onOpenProduct(prod);
                         }}
-                        className="text-xs font-semibold text-zinc-900 hover:text-purple-700 cursor-pointer line-clamp-1"
+                        className="text-xs font-semibold text-zinc-900 hover:text-black cursor-pointer line-clamp-1 transition-colors"
                       >
                         {prod.name}
                       </h4>

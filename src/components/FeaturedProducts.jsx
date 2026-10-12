@@ -95,9 +95,10 @@ export default function FeaturedProducts({
             <button
               key={tab.slug}
               onClick={() => setActiveFilter(tab.slug)}
-              className={`text-xs font-medium px-3 py-1.5 rounded-full transition-all ${
+              data-interactive-btn
+              className={`text-xs font-medium px-3.5 py-1.5 rounded-full transition-all ${
                 activeFilter === tab.slug
-                  ? 'bg-black text-white shadow-xs'
+                  ? 'btn-gloss-black text-white shadow-sm'
                   : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
               }`}
             >
@@ -125,7 +126,9 @@ export default function FeaturedProducts({
       <div className="mt-8 sm:mt-12 text-center">
         <button
           onClick={onNavigateToShop}
-          className="inline-flex items-center gap-2 border border-zinc-900 hover:bg-zinc-900 hover:text-white text-zinc-900 text-xs sm:text-sm font-semibold px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl transition-all"
+          data-magnetic
+          data-interactive-btn
+          className="inline-flex items-center gap-2 border border-zinc-900 hover:bg-zinc-900 hover:text-white text-zinc-900 text-xs sm:text-sm font-semibold px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl transition-all shadow-xs"
         >
           <span>Explore All 3 Curated Collections</span>
           <ArrowRight className="w-4 h-4" />

@@ -21,7 +21,7 @@ class ErrorBoundary extends React.Component {
           <div style={{ width: '60px', height: '60px', backgroundColor: '#fff', color: '#000', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '24px', marginBottom: '16px' }}>MO</div>
           <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '8px' }}>Male Order Erise</h2>
           <p style={{ color: '#a1a1aa', fontSize: '14px', maxWidth: '400px', marginBottom: '20px' }}>Loading experience... Please refresh if the page does not reload automatically.</p>
-          <button onClick={() => window.location.reload()} style={{ padding: '10px 24px', backgroundColor: '#8b24d6', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px' }}>
+          <button onClick={() => window.location.reload()} style={{ padding: '10px 24px', background: 'linear-gradient(180deg, #27272a 0%, #09090b 100%)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer', fontSize: '13px', boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.3), 0 4px 12px rgba(0,0,0,0.5)' }}>
             Reload Page
           </button>
         </div>

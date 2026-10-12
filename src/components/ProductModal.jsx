@@ -77,7 +77,7 @@ export default function ProductModal({
                     onClick={() => setSelectedImage(img)}
                     className={`w-14 h-14 rounded-xl overflow-hidden border-2 transition-all ${
                       selectedImage === img
-                        ? 'border-purple-600 scale-105 shadow-sm'
+                        ? 'border-zinc-950 scale-105 ring-2 ring-black/40 shadow-sm'
                         : 'border-transparent opacity-70 hover:opacity-100'
                     }`}
                   >
@@ -93,7 +93,7 @@ export default function ProductModal({
             <div>
               {/* Category & Rating */}
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-purple-700 bg-purple-50 px-2 py-0.5 rounded">
+                <span className="text-xs font-bold uppercase tracking-wider badge-gloss-black text-white px-3 py-1 rounded-full shadow-xs">
                   {product.category}
                 </span>
                 <div className="flex items-center gap-1 text-amber-500 text-xs font-semibold">
@@ -134,7 +134,7 @@ export default function ProductModal({
                   </span>
                   <button
                     onClick={() => setShowSizeGuide(!showSizeGuide)}
-                    className="text-xs text-purple-600 hover:text-purple-800 font-medium underline"
+                    className="text-xs text-zinc-900 hover:text-black font-semibold underline"
                   >
                     {showSizeGuide ? "Hide Size Guide" : "Size Guide"}
                   </button>
@@ -200,6 +200,7 @@ export default function ProductModal({
                 {/* Primary WhatsApp Action (NO "Buy now" as instructed by user) */}
                 <button
                   onClick={handleWhatsAppInquiry}
+                  data-interactive-btn
                   className="flex-1 bg-[#25D366] hover:bg-[#20bd5a] active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all text-sm"
                 >
                   <img src={whatsappIcon} alt="" className="w-5 h-5 object-contain rounded-full shrink-0" />

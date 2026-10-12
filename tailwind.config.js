@@ -14,8 +14,8 @@ export default {
       },
       colors: {
         brand: {
-          purple: '#8b24d6',
-          purpleHover: '#7a1ec0',
+          gloss: '#18181b',
+          glossHover: '#27272a',
           whatsapp: '#25D366',
           whatsappHover: '#20bd5a',
           dark: '#111111',

@@ -60,7 +60,7 @@ export default function ProductCard({
         </div>
 
         {/* Product Title */}
-        <h3 className="text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-purple-700 transition-colors line-clamp-1">
+        <h3 className="text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-black transition-colors line-clamp-1">
           {product.name}
         </h3>
 
@@ -101,6 +101,7 @@ export default function ProductCard({
       {/* Primary WhatsApp Action Button with authentic WhatsApp logo (NO "Buy now" button) */}
       <button
         onClick={handleWhatsAppInquiry}
+        data-interactive-btn
         className="w-full mt-1 bg-[#25D366] hover:bg-[#20bd5a] active:scale-[0.99] text-white text-[11px] sm:text-xs font-semibold py-2 sm:py-2.5 px-2 rounded-xl flex items-center justify-center gap-1.5 shadow-xs transition-all hover:shadow-sm"
         aria-label={`Inquire about ${product.name} on WhatsApp`}
       >

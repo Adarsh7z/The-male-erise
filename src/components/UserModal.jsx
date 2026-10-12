@@ -81,8 +81,8 @@ export default function UserModal({ isOpen, onClose }) {
             rel="noopener noreferrer"
             className="flex items-center gap-3 p-3 bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 rounded-2xl transition-colors group"
           >
-            <div className="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center shadow-xs">
-              <Shield className="w-4 h-4" />
+            <div className="w-9 h-9 rounded-xl btn-gloss-black text-white flex items-center justify-center shadow-xs">
+              <Shield className="w-4 h-4 text-white" />
             </div>
             <div>
               <h4 className="text-xs font-bold text-zinc-900">
