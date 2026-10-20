@@ -1,6 +1,7 @@
 import React from 'react';
-import { X, Trash2, MessageCircle, Heart, ArrowRight } from 'lucide-react';
+import { X, Trash2, Heart, ArrowRight } from 'lucide-react';
 import { PRODUCTS, BRAND_INFO } from '../data/products';
+import whatsappIconBw from '../assets/whatsapp-icon-bw.png';
 
 export default function WishlistModal({
   isOpen,
@@ -117,7 +118,17 @@ export default function WishlistModal({
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-1.5 text-[11px] font-semibold text-white bg-[#25D366] hover:bg-[#20bd5a] py-1.5 px-3 rounded-lg mt-2 shadow-xs"
                   >
-                    <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                    <span className="wa-icon-badge" aria-hidden="true">
+                      <img
+                        src={whatsappIconBw}
+                        alt=""
+                        aria-hidden="true"
+                        draggable="false"
+                        width="26"
+                        height="26"
+                        className="wa-icon-badge-img"
+                      />
+                    </span>
                     <span>Inquiry on WhatsApp</span>
                   </a>
                 </div>
@@ -133,7 +144,17 @@ export default function WishlistModal({
               onClick={handleInquiryAll}
               className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all"
             >
-              <MessageCircle className="w-4 h-4 fill-white" />
+              <span className="wa-icon-badge" aria-hidden="true">
+                <img
+                  src={whatsappIconBw}
+                  alt=""
+                  aria-hidden="true"
+                  draggable="false"
+                  width="26"
+                  height="26"
+                  className="wa-icon-badge-img"
+                />
+              </span>
               <span>Inquire All Saved Items on WhatsApp</span>
             </button>
           </div>

@@ -14,6 +14,7 @@ import UserModal from './components/UserModal';
 import Footer from './components/Footer';
 import FloatingCTAs from './components/FloatingCTAs';
 import { BRAND_INFO } from './data/products';
+import whatsappIconBw from './assets/whatsapp-icon-bw.png';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -184,6 +185,17 @@ export default function App() {
                     data-interactive-btn
                     className="flex-1 md:flex-none bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-md inline-flex items-center justify-center gap-1.5"
                   >
+                    <span className="wa-icon-badge" aria-hidden="true">
+                      <img
+                        src={whatsappIconBw}
+                        alt=""
+                        aria-hidden="true"
+                        draggable="false"
+                        width="26"
+                        height="26"
+                        className="wa-icon-badge-img"
+                      />
+                    </span>
                     <span>WhatsApp</span>
                   </a>
                 </div>

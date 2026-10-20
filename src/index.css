@@ -487,32 +487,68 @@ a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"])::af
   }
 }
 
-/* WhatsApp Icon Treatment (rendered in white to match reference icon treatment, exposed via --wa-icon-color) */
-.btn-wa-inquiry img,
-[data-product-card] button[aria-label*="Inquire" i] img,
-[data-product-card] button[aria-label*="WhatsApp" i] img,
-[data-product-card] button.bg-\[\#25D366\] img,
-button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]) img,
-a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]) img,
-button:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]) img,
-a:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]) img {
-  color: var(--wa-icon-color, #ffffff);
-  filter: brightness(0) invert(1) !important;
-  opacity: 0.95;
-  transition: opacity 0.2s ease, filter 0.2s ease;
+/* =========================================================
+   WhatsApp Round White Badge & Custom B&W Logo Treatment
+   Displays the custom B&W logo inside a round white badge
+   with 3px padding, circular clipping & specular rim shadow.
+   ========================================================= */
+
+.wa-icon-badge {
+  width: 26px !important;
+  height: 26px !important;
+  flex: 0 0 26px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  background: #ffffff !important;
+  padding: 3px !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 1px 3px rgba(0, 0, 0, 0.45) !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  line-height: 1 !important;
+  margin: 0 !important;
 }
 
-.btn-wa-inquiry svg,
-[data-product-card] button[aria-label*="Inquire" i] svg,
-[data-product-card] button[aria-label*="WhatsApp" i] svg,
-[data-product-card] button.bg-\[\#25D366\] svg,
-button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]) svg,
-a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]) svg,
-button:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]) svg,
-a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]) svg {
-  color: var(--wa-icon-color, #ffffff) !important;
-  fill: var(--wa-icon-color, #ffffff) !important;
-  stroke: var(--wa-icon-color, #ffffff) !important;
-  transition: opacity 0.2s ease;
+.wa-icon-badge img,
+.wa-icon-badge-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+  border-radius: 50% !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* Ensure button and card height remain strictly identical (40px mobile / 44px desktop) */
+[data-product-card] button[aria-label*="Inquire" i],
+[data-product-card] button[aria-label*="WhatsApp" i],
+[data-product-card] button.bg-\[\#25D366\] {
+  height: 40px !important;
+  min-height: 40px !important;
+  max-height: 40px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+@media (min-width: 640px) {
+  [data-product-card] button[aria-label*="Inquire" i],
+  [data-product-card] button[aria-label*="WhatsApp" i],
+  [data-product-card] button.bg-\[\#25D366\] {
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+  }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { MapPin, Navigation, Clock, Phone } from 'lucide-react';
 import { BRAND_INFO } from '../data/products';
 import googleMapsIcon from '../assets/google-maps-pin.png';
-import whatsappIcon from '../assets/whatsapp-circle.png';
+import whatsappIconBw from '../assets/whatsapp-icon-bw.png';
 
 export default function StoreLocation() {
   return (
@@ -66,7 +66,17 @@ export default function StoreLocation() {
                 data-interactive-btn
                 className="bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold py-3 px-5 rounded-xl flex items-center justify-center gap-2 transition-all shadow-md active:scale-98"
               >
-                <img src={whatsappIcon} alt="" className="w-4 h-4 object-contain rounded-full shrink-0" />
+                <span className="wa-icon-badge" aria-hidden="true">
+                  <img
+                    src={whatsappIconBw}
+                    alt=""
+                    aria-hidden="true"
+                    draggable="false"
+                    width="26"
+                    height="26"
+                    className="wa-icon-badge-img"
+                  />
+                </span>
                 <span>Inquire on WhatsApp</span>
               </a>
             </div>
