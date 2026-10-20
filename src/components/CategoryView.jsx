@@ -50,10 +50,10 @@ export default function CategoryView({ onSelectCategory }) {
       
       {/* Heading Matching "Shop by Category" in Video */}
       <div className="category-view-heading text-center mb-8 sm:mb-12">
-        <h1 className="font-display-title text-3xl sm:text-4xl md:text-5xl text-zinc-900 tracking-tight">
+        <h1 className="font-display-title text-zinc-900">
           Shop by Category
         </h1>
-        <p className="text-xs sm:text-sm text-zinc-500 max-w-md mx-auto mt-1">
+        <p className="text-xs sm:text-sm text-zinc-600 max-w-md mx-auto mt-2 tracking-[var(--track-body)] leading-[1.5]">
           Explore our exclusive 3 core menswear lines: Office casuals, Kurta-pyjama & Blazers.
         </p>
       </div>
@@ -86,7 +86,7 @@ export default function CategoryView({ onSelectCategory }) {
 
             {/* Category Caption Below Card */}
             <div className="mt-2.5 text-center">
-              <h3 className="text-xs sm:text-base font-semibold text-zinc-900 group-hover:text-black transition-colors tracking-tight">
+              <h3 className="text-xs sm:text-base font-semibold text-zinc-900 group-hover:text-black transition-colors tracking-[var(--track-small)] leading-[1.3]">
                 {cat.name}
               </h3>
               <p className="text-[10px] sm:text-xs text-zinc-400 font-mono mt-0.5">

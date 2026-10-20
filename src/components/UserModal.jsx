@@ -22,7 +22,7 @@ export default function UserModal({ isOpen, onClose }) {
           <div className="w-14 h-14 bg-black text-white rounded-2xl flex items-center justify-center mx-auto mb-3 font-display font-bold text-xl shadow-md">
             MO
           </div>
-          <h3 className="text-lg font-bold text-zinc-900 tracking-tight">
+          <h3 className="text-lg font-bold text-zinc-900 tracking-[var(--track-display)]">
             Male Order Erise Concierge
           </h3>
           <p className="text-xs text-zinc-500 mt-0.5">

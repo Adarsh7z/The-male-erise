@@ -82,24 +82,24 @@ export default function FeaturedProducts({
       
       {/* Headings Matching Reference Screenshot */}
       <div className="featured-heading-block text-center mb-6 sm:mb-10">
-        <span className="block text-[11px] sm:text-xs font-bold tracking-widest text-zinc-500 uppercase mb-1">
+        <span className="block eyebrow-text mb-1">
           EXPLORE
         </span>
-        <h2 className="font-display-title text-3xl sm:text-4xl md:text-5xl text-zinc-900 tracking-tight">
+        <h2 className="font-display-title text-zinc-900">
           Featured Product
         </h2>
 
-        {/* 3 Sections Filter Pills */}
-        <div className="flex items-center justify-center gap-1.5 sm:gap-2 mt-4 sm:mt-6 flex-wrap">
+        {/* 3 Sections Filter Pills (Scrollable row on mobile, centered on desktop, min 44px touch target) */}
+        <div className="flex items-center justify-start sm:justify-center gap-2 mt-4 sm:mt-6 overflow-x-auto no-scrollbar pb-2 px-1 max-w-full">
           {filterCategories.map((tab) => (
             <button
               key={tab.slug}
               onClick={() => setActiveFilter(tab.slug)}
               data-interactive-btn
-              className={`text-xs font-medium px-3.5 py-1.5 rounded-full transition-all ${
+              className={`filter-chip-btn flex items-center justify-center shrink-0 px-4 py-2.5 rounded-full transition-all ${
                 activeFilter === tab.slug
                   ? 'btn-gloss-black text-white shadow-sm'
-                  : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                  : 'bg-zinc-100 text-zinc-800 hover:bg-zinc-200'
               }`}
             >
               {tab.label}

@@ -156,7 +156,7 @@ export default function App() {
                     <Sparkles className="w-3 h-3 text-white" />
                     <span className="text-white">Male Order Erise Atelier</span>
                   </div>
-                  <h3 className="text-lg sm:text-2xl font-extrabold tracking-tight font-sans">
+                  <h3 className="text-lg sm:text-2xl font-extrabold tracking-[var(--track-display)] font-sans">
                     Office Casuals • Festive Kurta-Pyjamas • Tailored Blazers
                   </h3>
                   <p className="text-xs text-zinc-400 max-w-xl">

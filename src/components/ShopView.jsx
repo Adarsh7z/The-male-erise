@@ -117,18 +117,18 @@ export default function ShopView({
           <button
             onClick={() => setMobileFilterOpen(true)}
             data-interactive-btn
-            className="btn-gloss-black text-white text-xs font-semibold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 shadow-md transition-all"
+            className="btn-gloss-black text-white text-[0.9375rem] font-semibold py-3 px-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all tracking-[var(--track-ui)] leading-[1.2] whitespace-nowrap min-h-[44px]"
           >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-white" />
+            <SlidersHorizontal className="w-4 h-4 text-white" />
             <span className="text-white">Filter {selectedCategories.length > 0 && `(${selectedCategories.length})`}</span>
           </button>
 
           <button
             onClick={() => setMobileSortOpen(true)}
             data-interactive-btn
-            className="btn-gloss-black text-white text-xs font-semibold py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 shadow-md transition-all"
+            className="btn-gloss-black text-white text-[0.9375rem] font-semibold py-3 px-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all tracking-[var(--track-ui)] leading-[1.2] whitespace-nowrap min-h-[44px]"
           >
-            <ArrowDownUp className="w-3.5 h-3.5 text-white" />
+            <ArrowDownUp className="w-4 h-4 text-white" />
             <span className="text-white">Sort by</span>
           </button>
         </div>
@@ -137,7 +137,7 @@ export default function ShopView({
       {/* Desktop Header */}
       <div className="hidden lg:flex items-center justify-between pb-6 mb-6 border-b border-zinc-200">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-zinc-900">
+          <h1 className="text-2xl font-bold tracking-[var(--track-display)] text-zinc-900">
             Catalog & Shop
           </h1>
           <p className="text-sm text-zinc-500 mt-0.5">

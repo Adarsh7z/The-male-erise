@@ -75,7 +75,7 @@ export default function TrendingCategories({ onSelectCategory, onNavigateToCateg
       
       {/* Title Styled exactly as in Screenshot media_1791450569581_6fb4d289.png */}
       <div className="text-center mb-6 sm:mb-10">
-        <h2 className="trending-title font-display-title text-3xl sm:text-4xl md:text-5xl text-zinc-900 tracking-tight">
+        <h2 className="trending-title font-display-title text-zinc-900">
           Trending Category
         </h2>
       </div>
@@ -125,7 +125,7 @@ export default function TrendingCategories({ onSelectCategory, onNavigateToCateg
                 </div>
 
                 {/* Category Caption Below Card */}
-                <span className="mt-2.5 sm:mt-3 text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-black transition-colors tracking-tight text-center">
+                <span className="mt-2.5 sm:mt-3 font-semibold text-zinc-900 group-hover:text-black transition-colors text-center category-card-label">
                   {cat.name}
                 </span>
               </div>
@@ -154,10 +154,10 @@ export default function TrendingCategories({ onSelectCategory, onNavigateToCateg
           onClick={onNavigateToCategories}
           data-magnetic
           data-interactive-btn
-          className="inline-flex items-center gap-2 btn-gloss-black gloss-sheen text-white font-semibold text-xs sm:text-sm px-6 sm:px-8 py-2.5 sm:py-3.5 rounded-xl sm:rounded-2xl shadow-lg transition-all"
+          className="inline-flex items-center gap-2.5 btn-gloss-black gloss-sheen text-white font-semibold btn-ui-text px-7 sm:px-9 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl shadow-lg transition-all min-h-[44px]"
         >
           <span className="text-white">View All Categories</span>
-          <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+          <ExternalLink className="w-4 h-4 text-white shrink-0" />
         </button>
       </div>
     </section>

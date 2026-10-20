@@ -33,6 +33,25 @@
   --font-display: 'Bueno', 'Bueno-Fallback', sans-serif;
   --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   --font-fallback: 'Bueno-Fallback';
+
+  /* Typography tracking tokens (mobile default) */
+  --track-display: 0.03em;   /* large headings */
+  --track-body: 0.02em;      /* general text */
+  --track-small: 0.04em;     /* announcement bar, captions, category labels */
+  --track-ui: 0.05em;        /* buttons, chips, nav items */
+  --track-eyebrow: 0.22em;   /* small uppercase labels */
+  --word-space-display: 0.06em;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --track-display: 0.018em;
+    --track-body: 0.012em;
+    --track-small: 0.024em;
+    --track-ui: 0.03em;
+    --track-eyebrow: 0.13em;
+    --word-space-display: 0.036em;
+  }
 }
 
 @layer base {
@@ -44,6 +63,8 @@
     font-feature-settings: "liga" 1, "case" 1;
     font-variant-numeric: proportional-nums;
     font-kerning: normal;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -52,29 +73,39 @@
     font-synthesis: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    letter-spacing: var(--track-body);
+    line-height: 1.5;
   }
 
   /* Form controls inherit typography */
   button, input, select, textarea {
     font-family: inherit;
     font-feature-settings: inherit;
+    letter-spacing: inherit;
   }
 
   ::placeholder {
     font-family: inherit;
+    letter-spacing: inherit;
   }
 
   /* Editorial Headings */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    line-height: 1.18;
-    letter-spacing: -0.015em;
+    line-height: 1.15;
+    letter-spacing: var(--track-display);
+    word-spacing: var(--word-space-display);
     text-wrap: balance;
   }
 
   /* Refined Body Reading */
   p {
-    line-height: 1.65;
+    line-height: 1.5;
+    letter-spacing: var(--track-body);
     text-wrap: pretty;
   }
 
@@ -87,9 +118,11 @@
 /* Custom display title styling with Bueno font */
 .font-display-title {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  font-weight: 600;
+  font-size: clamp(2rem, 8.5vw, 2.75rem);
+  letter-spacing: var(--track-display);
+  word-spacing: var(--word-space-display);
+  line-height: 1.1;
   text-wrap: balance;
   font-feature-settings: "liga" 1, "case" 1;
 }
@@ -98,13 +131,52 @@
 .text-fluid-hero {
   font-size: clamp(2rem, 1.4rem + 3vw, 3.75rem);
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--track-display);
+  word-spacing: var(--word-space-display);
 }
 
 .text-fluid-title {
   font-size: clamp(1.6rem, 1.25rem + 1.8vw, 2.75rem);
   line-height: 1.15;
-  letter-spacing: -0.015em;
+  letter-spacing: var(--track-display);
+}
+
+/* Specific typography helper tokens */
+.announcement-bar-text {
+  font-size: 0.8125rem;
+  letter-spacing: var(--track-small);
+  line-height: 1.45;
+  word-spacing: 0.05em;
+  color: #27272a;
+}
+
+.category-card-label {
+  font-size: 1rem;
+  letter-spacing: var(--track-small);
+  line-height: 1.3;
+}
+
+.eyebrow-text {
+  font-size: 0.75rem;
+  letter-spacing: var(--track-eyebrow);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #3f3f46;
+}
+
+.btn-ui-text {
+  font-size: 0.9375rem;
+  letter-spacing: var(--track-ui);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.filter-chip-btn {
+  font-size: 0.9375rem;
+  letter-spacing: var(--track-ui);
+  line-height: 1.2;
+  white-space: nowrap;
+  min-height: 44px;
 }
 
 .tabular-nums {

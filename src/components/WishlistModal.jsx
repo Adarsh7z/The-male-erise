@@ -32,7 +32,7 @@ export default function WishlistModal({
         <div className="p-4 sm:p-5 border-b border-zinc-200 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Heart className="w-5 h-5 text-red-500 fill-current" />
-            <h2 className="text-base font-bold text-zinc-900 tracking-tight">
+            <h2 className="text-base font-bold text-zinc-900 tracking-[var(--track-display)]">
               My Saved Wishlist ({wishlistedProducts.length})
             </h2>
           </div>

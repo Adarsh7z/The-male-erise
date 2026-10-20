@@ -60,16 +60,16 @@ export default function ProductCard({
         </div>
 
         {/* Product Title */}
-        <h3 className="text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-black transition-colors line-clamp-1">
+        <h3 className="text-xs sm:text-sm font-semibold text-zinc-900 group-hover:text-black transition-colors line-clamp-1 tracking-[var(--track-body)] leading-[1.35]">
           {product.name}
         </h3>
 
         {/* Pricing Formatting: Current Bold vs Strikethrough Original */}
         <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 mb-2">
-          <span className="text-xs sm:text-base font-bold text-zinc-900">
+          <span className="text-xs sm:text-base font-bold text-zinc-900 tracking-[var(--track-body)]">
             ₹{product.price.toLocaleString()}
           </span>
-          <span className="text-[11px] sm:text-xs text-zinc-400 line-through">
+          <span className="text-[11px] sm:text-xs text-zinc-400 line-through tracking-[var(--track-body)]">
             ₹{product.originalPrice.toLocaleString()}
           </span>
         </div>
@@ -102,7 +102,7 @@ export default function ProductCard({
       <button
         onClick={handleWhatsAppInquiry}
         data-interactive-btn
-        className="w-full mt-1 bg-[#25D366] hover:bg-[#20bd5a] active:scale-[0.99] text-white text-[11px] sm:text-xs font-semibold py-2 sm:py-2.5 px-2 rounded-xl flex items-center justify-center gap-1.5 shadow-xs transition-all hover:shadow-sm"
+        className="w-full mt-1 bg-[#25D366] hover:bg-[#20bd5a] active:scale-[0.99] text-white text-[12px] sm:text-xs font-semibold py-2.5 px-2.5 rounded-xl flex items-center justify-center gap-1.5 shadow-xs transition-all hover:shadow-sm tracking-[var(--track-ui)] leading-[1.2] min-h-[40px] sm:min-h-[44px]"
         aria-label={`Inquire about ${product.name} on WhatsApp`}
       >
         <img src={whatsappIcon} alt="" className="w-4 h-4 object-contain rounded-full shrink-0" />

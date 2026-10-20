@@ -18,7 +18,7 @@ export default function StoreLocation() {
             </div>
 
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-sans text-white">
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-[var(--track-display)] font-sans text-white">
                 Visit Male Order Erise
               </h2>
               <p className="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">

@@ -75,7 +75,7 @@ export default function Navbar({
             <nav className="hidden md:flex items-center gap-8 lg:gap-10">
               <button
                 onClick={() => handleNavClick('home')}
-                className={`text-xs font-bold tracking-widest uppercase transition-colors relative py-2 ${
+                className={`text-xs font-bold tracking-[var(--track-ui)] uppercase transition-colors relative py-2 ${
                   activeTab === 'home' && !isCategoryOpen ? 'text-white' : 'text-zinc-300 hover:text-white'
                 }`}
               >
@@ -87,7 +87,7 @@ export default function Navbar({
 
               <button
                 onClick={() => handleNavClick('shop')}
-                className={`text-xs font-bold tracking-widest uppercase transition-colors relative py-2 ${
+                className={`text-xs font-bold tracking-[var(--track-ui)] uppercase transition-colors relative py-2 ${
                   activeTab === 'shop' ? 'text-white' : 'text-zinc-300 hover:text-white'
                 }`}
               >
@@ -105,7 +105,7 @@ export default function Navbar({
                   }
                 }}
                 onMouseEnter={() => setIsCategoryOpen(true)}
-                className={`text-xs font-bold tracking-widest uppercase transition-colors relative py-2 flex items-center gap-1.5 ${
+                className={`text-xs font-bold tracking-[var(--track-ui)] uppercase transition-colors relative py-2 flex items-center gap-1.5 ${
                   isCategoryOpen || activeTab === 'category' ? 'text-white' : 'text-zinc-300 hover:text-white'
                 }`}
                 aria-expanded={isCategoryOpen}
