@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Heart, ShieldCheck, Truck, RefreshCw, Star } from 'lucide-react';
 import { BRAND_INFO } from '../data/products';
-import whatsappIconBw from '../assets/whatsapp-icon-bw.png';
+import whatsappIconBwTransparent from '../assets/whatsapp-icon-bw-transparent.png';
 
 export default function ProductModal({
   product,
@@ -203,17 +203,15 @@ export default function ProductModal({
                   data-interactive-btn
                   className="flex-1 bg-[#25D366] hover:bg-[#20bd5a] active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all text-sm tracking-[var(--track-ui)] leading-[1.2] min-h-[44px]"
                 >
-                  <span className="wa-icon-badge" aria-hidden="true">
-                    <img
-                      src={whatsappIconBw}
-                      alt=""
-                      aria-hidden="true"
-                      draggable="false"
-                      width="26"
-                      height="26"
-                      className="wa-icon-badge-img"
-                    />
-                  </span>
+                  <img
+                    src={whatsappIconBwTransparent}
+                    alt=""
+                    aria-hidden="true"
+                    draggable="false"
+                    width="26"
+                    height="26"
+                    className="wa-icon-img shrink-0"
+                  />
                   <span>Inquiry On Whatsapp</span>
                 </button>
 

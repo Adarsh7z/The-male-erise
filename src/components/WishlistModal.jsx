@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, Trash2, Heart, ArrowRight } from 'lucide-react';
 import { PRODUCTS, BRAND_INFO } from '../data/products';
-import whatsappIconBw from '../assets/whatsapp-icon-bw.png';
+import whatsappIconBwTransparent from '../assets/whatsapp-icon-bw-transparent.png';
 
 export default function WishlistModal({
   isOpen,
@@ -118,17 +118,15 @@ export default function WishlistModal({
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-1.5 text-[11px] font-semibold text-white bg-[#25D366] hover:bg-[#20bd5a] py-1.5 px-3 rounded-lg mt-2 shadow-xs"
                   >
-                    <span className="wa-icon-badge" aria-hidden="true">
-                      <img
-                        src={whatsappIconBw}
-                        alt=""
-                        aria-hidden="true"
-                        draggable="false"
-                        width="26"
-                        height="26"
-                        className="wa-icon-badge-img"
-                      />
-                    </span>
+                    <img
+                      src={whatsappIconBwTransparent}
+                      alt=""
+                      aria-hidden="true"
+                      draggable="false"
+                      width="26"
+                      height="26"
+                      className="wa-icon-img shrink-0"
+                    />
                     <span>Inquiry on WhatsApp</span>
                   </a>
                 </div>
@@ -144,17 +142,15 @@ export default function WishlistModal({
               onClick={handleInquiryAll}
               className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all"
             >
-              <span className="wa-icon-badge" aria-hidden="true">
-                <img
-                  src={whatsappIconBw}
-                  alt=""
-                  aria-hidden="true"
-                  draggable="false"
-                  width="26"
-                  height="26"
-                  className="wa-icon-badge-img"
-                />
-              </span>
+              <img
+                src={whatsappIconBwTransparent}
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+                width="26"
+                height="26"
+                className="wa-icon-img shrink-0"
+              />
               <span>Inquire All Saved Items on WhatsApp</span>
             </button>
           </div>

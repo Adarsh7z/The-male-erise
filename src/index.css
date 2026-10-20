@@ -488,24 +488,25 @@ a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"])::af
 }
 
 /* =========================================================
-   WhatsApp Round White Badge & Custom B&W Logo Treatment
-   Displays the custom B&W logo inside a round white badge
-   with 3px padding, circular clipping & specular rim shadow.
+   WhatsApp Direct Logo Treatment (No White Circular Badge)
+   Renders only the transparent B&W WhatsApp logo directly
+   on the glossy black button without white badge, ring or shadow.
    ========================================================= */
 
+.wa-icon-img,
 .wa-icon-badge {
   width: 26px !important;
   height: 26px !important;
   flex: 0 0 26px !important;
-  border-radius: 50% !important;
-  overflow: hidden !important;
-  background: #ffffff !important;
-  padding: 3px !important;
-  box-sizing: border-box !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 1px 3px rgba(0, 0, 0, 0.45) !important;
+  display: block !important;
+  object-fit: contain !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  box-shadow: none !important;
+  border: none !important;
   pointer-events: none !important;
   user-select: none !important;
   -webkit-user-select: none !important;
@@ -522,7 +523,12 @@ a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"])::af
   height: 100% !important;
   object-fit: contain !important;
   display: block !important;
-  border-radius: 50% !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
   filter: none !important;
   mix-blend-mode: normal !important;
   opacity: 1 !important;

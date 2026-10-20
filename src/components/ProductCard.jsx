@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Heart } from 'lucide-react';
 import { BRAND_INFO } from '../data/products';
-import whatsappIconBw from '../assets/whatsapp-icon-bw.png';
+import whatsappIconBwTransparent from '../assets/whatsapp-icon-bw-transparent.png';
 
 export default function ProductCard({
   product,
@@ -105,17 +105,15 @@ export default function ProductCard({
         className="w-full mt-1 bg-[#25D366] hover:bg-[#20bd5a] active:scale-[0.99] text-white text-[12px] sm:text-xs font-semibold py-2.5 px-2.5 rounded-xl flex items-center justify-center gap-1.5 shadow-xs transition-all hover:shadow-sm tracking-[var(--track-ui)] leading-[1.2] min-h-[40px] sm:min-h-[44px]"
         aria-label={`Inquire about ${product.name} on WhatsApp`}
       >
-        <span className="wa-icon-badge" aria-hidden="true">
-          <img
-            src={whatsappIconBw}
-            alt=""
-            aria-hidden="true"
-            draggable="false"
-            width="26"
-            height="26"
-            className="wa-icon-badge-img"
-          />
-        </span>
+        <img
+          src={whatsappIconBwTransparent}
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+          width="26"
+          height="26"
+          className="wa-icon-img shrink-0"
+        />
         <span className="truncate">Inquiry On Whatsapp</span>
       </button>
     </div>
