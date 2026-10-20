@@ -3,28 +3,36 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Absans';
-  src: url('/fonts/Absans-Regular.woff2') format('woff2'),
-       url('/fonts/Absans-Regular.woff') format('woff');
+  font-family: 'Bueno';
+  src: url('/fonts/Bueno-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Absans-Fallback';
+  font-family: 'Bueno';
+  src: url('/fonts/Bueno-VF.ttf') format('truetype-variations'),
+       url('/fonts/Bueno-VF.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bueno-Fallback';
   src: local('Arial');
-  ascent-override: 80%;
-  descent-override: 20%;
-  line-gap-override: 4%;
+  ascent-override: 74%;
+  descent-override: 19%;
+  line-gap-override: 7%;
   size-adjust: 100%;
 }
 
 :root {
-  --font-primary: 'Absans', 'Absans-Fallback', sans-serif;
-  --font-display: 'Absans', 'Absans-Fallback', sans-serif;
+  --font-primary: 'Bueno', 'Bueno-Fallback', sans-serif;
+  --font-display: 'Bueno', 'Bueno-Fallback', sans-serif;
   --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  --font-fallback: 'Absans-Fallback';
+  --font-fallback: 'Bueno-Fallback';
 }
 
 @layer base {
@@ -35,6 +43,7 @@
     text-rendering: optimizeLegibility;
     font-feature-settings: "liga" 1, "case" 1;
     font-variant-numeric: proportional-nums;
+    font-kerning: normal;
   }
 
   body {
@@ -58,8 +67,8 @@
   /* Editorial Headings */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
     text-wrap: balance;
   }
 
@@ -75,27 +84,27 @@
   }
 }
 
-/* Custom display title styling with Absans font */
+/* Custom display title styling with Bueno font */
 .font-display-title {
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.025em;
-  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
   text-wrap: balance;
-  font-feature-settings: "liga" 1, "case" 1, "ss04" 1;
+  font-feature-settings: "liga" 1, "case" 1;
 }
 
 /* Typography refinements */
 .text-fluid-hero {
-  font-size: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+  font-size: clamp(2rem, 1.4rem + 3vw, 3.75rem);
   line-height: 1.1;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 .text-fluid-title {
-  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+  font-size: clamp(1.6rem, 1.25rem + 1.8vw, 2.75rem);
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
 }
 
 .tabular-nums {
