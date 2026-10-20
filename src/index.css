@@ -41,6 +41,19 @@
   --track-ui: 0.05em;        /* buttons, chips, nav items */
   --track-eyebrow: 0.22em;   /* small uppercase labels */
   --word-space-display: 0.06em;
+
+  /* Shared Gloss Black Button Design Tokens (extracted from View All Categories & Active Filter Chips) */
+  --btn-gloss-bg: linear-gradient(180deg, #2c2c2c 0%, #141416 48%, #09090b 100%);
+  --btn-gloss-bg-hover: linear-gradient(180deg, #3d3d42 0%, #1c1c20 48%, #09090b 100%);
+  --btn-gloss-border: 1px solid rgba(255, 255, 255, 0.18);
+  --btn-gloss-border-hover: rgba(255, 255, 255, 0.45);
+  --btn-gloss-color: #ffffff;
+  --btn-gloss-shadow: 0 4px 12px rgba(0, 0, 0, 0.28), 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+  --btn-gloss-shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.45), inset 0 -2px 4px rgba(0, 0, 0, 0.6);
+  --btn-gloss-shadow-active: 0 2px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+
+  /* WhatsApp Icon Color Token */
+  --wa-icon-color: #ffffff;
 }
 
 @media (min-width: 768px) {
@@ -262,18 +275,31 @@
    ========================================================= */
 .btn-gloss-black {
   position: relative;
-  background: linear-gradient(180deg, #27272a 0%, #141416 52%, #09090b 100%);
-  color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.6), 0 4px 14px 0 rgba(0, 0, 0, 0.45);
+  background: var(--btn-gloss-bg);
+  color: var(--btn-gloss-color) !important;
+  border: var(--btn-gloss-border);
+  box-shadow: var(--btn-gloss-shadow);
   overflow: hidden;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease, filter 0.2s ease;
 }
 
-.btn-gloss-black:hover {
-  background: linear-gradient(180deg, #3f3f46 0%, #1a1a1d 50%, #09090b 100%);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.7), 0 8px 24px -2px rgba(0, 0, 0, 0.7);
+@media (hover: hover) {
+  .btn-gloss-black:hover {
+    background: var(--btn-gloss-bg-hover);
+    border-color: var(--btn-gloss-border-hover);
+    box-shadow: var(--btn-gloss-shadow-hover);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-gloss-black:active {
+  transform: translateY(1px);
+  box-shadow: var(--btn-gloss-shadow-active);
+}
+
+.btn-gloss-black:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.75);
+  outline-offset: 2px;
 }
 
 .badge-gloss-black {
@@ -339,3 +365,154 @@
 .gloss-sheen:hover::after {
   transform: translateX(450%) rotate(25deg);
 }
+
+/* =========================================================
+   WhatsApp Inquiry Button - Gloss Black Styling System
+   Restyles all WhatsApp inquiry buttons across product cards,
+   quick-view modals, cart/wishlist drawers & store sections to match
+   the luxury gloss black aesthetic of "View All Categories" &
+   the active filter chips. Visual-only CSS enhancement.
+   ========================================================= */
+
+.btn-wa-inquiry,
+[data-product-card] button[aria-label*="Inquire" i],
+[data-product-card] button[aria-label*="WhatsApp" i],
+[data-product-card] button.bg-\[\#25D366\],
+button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]),
+a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]),
+button:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]),
+a:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]),
+button:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]),
+a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]) {
+  position: relative !important;
+  background: var(--btn-gloss-bg) !important;
+  background-color: transparent !important;
+  color: var(--btn-gloss-color) !important;
+  border: var(--btn-gloss-border) !important;
+  box-shadow: var(--btn-gloss-shadow) !important;
+  overflow: hidden !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease, filter 0.2s ease !important;
+}
+
+/* Hover State (Wrapped in @media (hover: hover) to prevent touch device stickiness) */
+@media (hover: hover) {
+  .btn-wa-inquiry:hover,
+  [data-product-card] button[aria-label*="Inquire" i]:hover,
+  [data-product-card] button[aria-label*="WhatsApp" i]:hover,
+  [data-product-card] button.bg-\[\#25D366\]:hover,
+  button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]):hover,
+  a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]):hover,
+  button:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]):hover,
+  a:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]):hover,
+  button:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]):hover,
+  a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]):hover {
+    background: var(--btn-gloss-bg-hover) !important;
+    background-color: transparent !important;
+    border-color: var(--btn-gloss-border-hover) !important;
+    box-shadow: var(--btn-gloss-shadow-hover) !important;
+    transform: translateY(-1px) !important;
+  }
+}
+
+/* Active / Pressed State */
+.btn-wa-inquiry:active,
+[data-product-card] button[aria-label*="Inquire" i]:active,
+[data-product-card] button[aria-label*="WhatsApp" i]:active,
+[data-product-card] button.bg-\[\#25D366\]:active,
+button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]):active,
+a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]):active,
+button:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]):active,
+a:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]):active,
+button:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]):active,
+a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]):active {
+  transform: translateY(1px) !important;
+  box-shadow: var(--btn-gloss-shadow-active) !important;
+}
+
+/* Focus-Visible Keyboard Navigation Outline */
+.btn-wa-inquiry:focus-visible,
+[data-product-card] button[aria-label*="Inquire" i]:focus-visible,
+[data-product-card] button[aria-label*="WhatsApp" i]:focus-visible,
+[data-product-card] button.bg-\[\#25D366\]:focus-visible,
+button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]):focus-visible,
+a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]):focus-visible,
+button:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]):focus-visible,
+a:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]):focus-visible,
+button:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]):focus-visible,
+a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]):focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.75) !important;
+  outline-offset: 2px !important;
+}
+
+/* Specular Sheen Sweep Animation on Inquiry Buttons (Matching "View All Categories") */
+.btn-wa-inquiry::after,
+[data-product-card] button[aria-label*="Inquire" i]::after,
+[data-product-card] button[aria-label*="WhatsApp" i]::after,
+[data-product-card] button.bg-\[\#25D366\]::after,
+button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"])::after,
+a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"])::after,
+button:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"])::after,
+a:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"])::after,
+button:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"])::after,
+a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"])::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -80%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 15%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 85%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .btn-wa-inquiry:hover::after,
+  [data-product-card] button[aria-label*="Inquire" i]:hover::after,
+  [data-product-card] button[aria-label*="WhatsApp" i]:hover::after,
+  [data-product-card] button.bg-\[\#25D366\]:hover::after,
+  button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]):hover::after,
+  a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]):hover::after,
+  button:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]):hover::after,
+  a:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]):hover::after,
+  button:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]):hover::after,
+  a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]):hover::after {
+    transform: translateX(450%) rotate(25deg);
+  }
+}
+
+/* WhatsApp Icon Treatment (rendered in white to match reference icon treatment, exposed via --wa-icon-color) */
+.btn-wa-inquiry img,
+[data-product-card] button[aria-label*="Inquire" i] img,
+[data-product-card] button[aria-label*="WhatsApp" i] img,
+[data-product-card] button.bg-\[\#25D366\] img,
+button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]) img,
+a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]) img,
+button:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]) img,
+a:has(img[src*="whatsapp"]):not([aria-label="Direct WhatsApp Inquiry"]) img {
+  color: var(--wa-icon-color, #ffffff);
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.95;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.btn-wa-inquiry svg,
+[data-product-card] button[aria-label*="Inquire" i] svg,
+[data-product-card] button[aria-label*="WhatsApp" i] svg,
+[data-product-card] button.bg-\[\#25D366\] svg,
+button.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]) svg,
+a.bg-\[\#25D366\]:not([aria-label="Direct WhatsApp Inquiry"]) svg,
+button:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]) svg,
+a:has(svg.lucide-message-circle):not([aria-label="Direct WhatsApp Inquiry"]) svg {
+  color: var(--wa-icon-color, #ffffff) !important;
+  fill: var(--wa-icon-color, #ffffff) !important;
+  stroke: var(--wa-icon-color, #ffffff) !important;
+  transition: opacity 0.2s ease;
+}
+
