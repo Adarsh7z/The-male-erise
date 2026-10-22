@@ -32,9 +32,9 @@ export default function App() {
   const [wishlist, setWishlist] = useState(() => {
     try {
       const saved = localStorage.getItem('moe_wishlist');
-      return saved ? JSON.parse(saved) : ['moe-oc-01', 'moe-kp-01'];
+      return saved ? JSON.parse(saved) : ['moe-sh-01', 'moe-ku-01'];
     } catch {
-      return ['moe-oc-01', 'moe-kp-01'];
+      return ['moe-sh-01', 'moe-ku-01'];
     }
   });
 
@@ -63,13 +63,16 @@ export default function App() {
     }
   }, [activeTab]);
 
-  // Backward compatibility: resolve ?category=coats or ?section=coats to blazers
+  // Backward compatibility: resolve legacy category/section query params
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
       const catParam = params.get('category') || params.get('section');
       if (catParam) {
-        const normalized = catParam.toLowerCase() === 'coats' ? 'blazers' : catParam.toLowerCase();
+        let normalized = catParam.toLowerCase();
+        if (normalized === 'coats') normalized = 'blazers';
+        if (normalized === 'office-casuals' || normalized === 'office') normalized = 'shirts';
+        if (normalized === 'kurta-pyjama' || normalized === 'kurta') normalized = 'kurtas';
         setSelectedCategorySlug(normalized);
         setActiveTab('shop');
       }
@@ -87,7 +90,10 @@ export default function App() {
   };
 
   const handleSelectCategory = (slug) => {
-    const normalizedSlug = slug === 'coats' ? 'blazers' : slug;
+    let normalizedSlug = slug;
+    if (slug === 'coats') normalizedSlug = 'blazers';
+    if (slug === 'office-casuals') normalizedSlug = 'shirts';
+    if (slug === 'kurta-pyjama') normalizedSlug = 'kurtas';
     setSelectedCategorySlug(normalizedSlug);
     setActiveTab('shop');
     setIsCategoryOpen(false);
@@ -158,7 +164,7 @@ export default function App() {
                     <span className="text-white">Male Order Erise Atelier</span>
                   </div>
                   <h3 className="text-lg sm:text-2xl font-extrabold tracking-[var(--track-display)] font-sans">
-                    Office Casuals • Festive Kurta-Pyjamas • Tailored Blazers
+                    Shirts • Handcrafted Kurtas • Tailored Blazers
                   </h3>
                   <p className="text-xs text-zinc-400 max-w-xl">
                     Every piece is crafted with exquisite tailoring and premium textiles. Inquire directly on WhatsApp for customized fittings.
@@ -177,7 +183,7 @@ export default function App() {
                   </button>
                   <a
                     href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${encodeURIComponent(
-                      `Hi, I would like to inquire about customized tailoring for Office casuals, Kurta-pyjama, and Blazers at ${BRAND_INFO.name}.`
+                      `Hi, I would like to inquire about customized tailoring for Shirts, Kurtas, and Blazers at ${BRAND_INFO.name}.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"

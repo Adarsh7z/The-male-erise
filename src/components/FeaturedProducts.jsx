@@ -17,15 +17,18 @@ export default function FeaturedProducts({
   const containerRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // ONLY the 3 requested sections: Office casuals, Kurta-pyjama, Blazers
+  // ONLY the 3 requested sections: Shirts, Kurtas, Blazers
   const filterCategories = [
     { label: "All Items", slug: "all" },
-    { label: "Office casuals", slug: "office-casuals" },
-    { label: "Kurta-pyjama", slug: "kurta-pyjama" },
+    { label: "Shirts", slug: "shirts" },
+    { label: "Kurtas", slug: "kurtas" },
     { label: "Blazers", slug: "blazers" },
   ];
 
-  const targetFilter = activeFilter === 'coats' ? 'blazers' : activeFilter;
+  let targetFilter = activeFilter;
+  if (activeFilter === 'coats') targetFilter = 'blazers';
+  if (activeFilter === 'office-casuals') targetFilter = 'shirts';
+  if (activeFilter === 'kurta-pyjama') targetFilter = 'kurtas';
 
   const filteredProducts = targetFilter === 'all'
     ? PRODUCTS

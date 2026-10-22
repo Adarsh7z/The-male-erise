@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { X, Heart, ShieldCheck, Truck, RefreshCw, Star } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { X, Heart, ShieldCheck, Truck, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { BRAND_INFO } from '../data/products';
 import whatsappIconBwTransparent from '../assets/whatsapp-icon-bw-transparent.png';
+
+const FALLBACK_PLACEHOLDER =
+  'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="750" viewBox="0 0 600 750" fill="%23f4f4f5"><rect width="600" height="750" fill="%23f4f4f5"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23a1a1aa" font-family="sans-serif" font-size="16">Image Unavailable</text></svg>';
 
 export default function ProductModal({
   product,
@@ -9,24 +12,70 @@ export default function ProductModal({
   isWishlisted,
   onToggleWishlist
 }) {
-  const [selectedImage, setSelectedImage] = useState(product ? product.images[0] : null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState(product?.sizes ? product.sizes[0] : 'M');
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const touchStartX = useRef(null);
+
+  const images = product?.images || [];
+  const imagesCount = images.length;
 
   useEffect(() => {
     if (product) {
-      setSelectedImage(product.images[0]);
-      setSelectedSize(product.sizes[0] || 'M');
+      setSelectedImageIndex(0);
+      setSelectedSize(product.sizes?.[0] || 'M');
     }
 
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        onClose();
+      } else if (e.key === 'ArrowLeft' && imagesCount > 1) {
+        setSelectedImageIndex((prev) => (prev > 0 ? prev - 1 : imagesCount - 1));
+      } else if (e.key === 'ArrowRight' && imagesCount > 1) {
+        setSelectedImageIndex((prev) => (prev < imagesCount - 1 ? prev + 1 : 0));
+      }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [product, onClose]);
+  }, [product, onClose, imagesCount]);
 
   if (!product) return null;
+
+  const handlePrev = (e) => {
+    e?.stopPropagation();
+    if (imagesCount > 1) {
+      setSelectedImageIndex((prev) => (prev > 0 ? prev - 1 : imagesCount - 1));
+    }
+  };
+
+  const handleNext = (e) => {
+    e?.stopPropagation();
+    if (imagesCount > 1) {
+      setSelectedImageIndex((prev) => (prev < imagesCount - 1 ? prev + 1 : 0));
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const deltaX = touchStartX.current - touchEndX;
+
+    if (Math.abs(deltaX) > 40 && imagesCount > 1) {
+      if (deltaX > 0) {
+        // Swiped left -> next
+        handleNext();
+      } else {
+        // Swiped right -> prev
+        handlePrev();
+      }
+    }
+    touchStartX.current = null;
+  };
 
   const handleWhatsAppInquiry = () => {
     const sizeText = selectedSize ? `, Size: ${selectedSize}` : '';
@@ -35,6 +84,8 @@ export default function ProductModal({
     );
     window.open(`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
   };
+
+  const currentImage = images[selectedImageIndex] || images[0] || '';
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fade-in">
@@ -53,35 +104,81 @@ export default function ProductModal({
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           
-          {/* Left Column: Image Gallery */}
+          {/* Left Column: Image Gallery with 4:5 Aspect Ratio */}
           <div className="p-4 sm:p-6 bg-[#f8f9fa] flex flex-col justify-between">
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-white shadow-inner mb-4">
+            {/* Main Image with Navigation Arrows & Swipe Support */}
+            <div
+              className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-white shadow-inner mb-3 select-none"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
               <img
-                src={selectedImage}
-                alt={product.name}
-                className="w-full h-full object-cover transition-all duration-300"
+                key={selectedImageIndex}
+                src={currentImage}
+                alt={`${product.name}, view ${selectedImageIndex + 1} of ${imagesCount}`}
+                width="600"
+                height="750"
+                className="w-full h-full object-cover object-[center_top] transition-opacity duration-300 animate-fade-in"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = FALLBACK_PLACEHOLDER;
+                }}
               />
+
               {product.badge && (
-                <span className="absolute top-3 left-3 bg-black text-white text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md shadow-sm">
+                <span className="absolute top-3 left-3 bg-black text-white text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md shadow-sm z-10">
                   {product.badge}
                 </span>
               )}
+
+              {/* Prev / Next Navigation Arrows */}
+              {imagesCount > 1 && (
+                <>
+                  <button
+                    onClick={handlePrev}
+                    className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-all shadow-md z-10"
+                    aria-label="Previous photo"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-all shadow-md z-10"
+                    aria-label="Next photo"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
+
+              {/* Mobile Image Indicator Counter */}
+              {imagesCount > 1 && (
+                <div className="absolute bottom-2.5 right-3 bg-black/70 backdrop-blur-sm text-white text-[10px] font-semibold px-2 py-0.5 rounded-full z-10">
+                  {selectedImageIndex + 1} / {imagesCount}
+                </div>
+              )}
             </div>
 
-            {/* Thumbnail selector if multiple images */}
-            {product.images.length > 1 && (
+            {/* Thumbnail Strip (Adapts cleanly to 2 or 3 images with NO empty slots) */}
+            {imagesCount > 1 && (
               <div className="flex gap-2.5 justify-center">
-                {product.images.map((img, idx) => (
+                {images.map((img, idx) => (
                   <button
                     key={idx}
-                    onClick={() => setSelectedImage(img)}
-                    className={`w-14 h-14 rounded-xl overflow-hidden border-2 transition-all ${
-                      selectedImage === img
+                    onClick={() => setSelectedImageIndex(idx)}
+                    className={`w-14 sm:w-16 h-18 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
+                      selectedImageIndex === idx
                         ? 'border-zinc-950 scale-105 ring-2 ring-black/40 shadow-sm'
-                        : 'border-transparent opacity-70 hover:opacity-100'
+                        : 'border-zinc-200 opacity-70 hover:opacity-100 hover:border-zinc-400'
                     }`}
+                    aria-label={`View photo ${idx + 1}`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img
+                      src={img}
+                      alt={`${product.name}, thumbnail ${idx + 1}`}
+                      className="w-full h-full object-cover object-[center_top]"
+                      loading="lazy"
+                    />
                   </button>
                 ))}
               </div>
@@ -170,11 +267,11 @@ export default function ProductModal({
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-zinc-200">
-                        <tr><td className="py-1 font-bold">S</td><td>38"</td><td>17.5"</td><td>27.5"</td></tr>
-                        <tr><td className="py-1 font-bold">M</td><td>40"</td><td>18.5"</td><td>28.5"</td></tr>
-                        <tr><td className="py-1 font-bold">L</td><td>42"</td><td>19.5"</td><td>29.5"</td></tr>
-                        <tr><td className="py-1 font-bold">XL</td><td>44"</td><td>20.5"</td><td>30.5"</td></tr>
-                        <tr><td className="py-1 font-bold">XXL</td><td>46"</td><td>21.5"</td><td>31.5"</td></tr>
+                        <tr><td className="py-1 font-bold">S / 38</td><td>38"</td><td>17.5"</td><td>28"</td></tr>
+                        <tr><td className="py-1 font-bold">M / 40</td><td>40"</td><td>18.5"</td><td>29"</td></tr>
+                        <tr><td className="py-1 font-bold">L / 42</td><td>42"</td><td>19.5"</td><td>30"</td></tr>
+                        <tr><td className="py-1 font-bold">XL / 44</td><td>44"</td><td>20.5"</td><td>31"</td></tr>
+                        <tr><td className="py-1 font-bold">XXL / 46</td><td>46"</td><td>21.5"</td><td>32"</td></tr>
                       </tbody>
                     </table>
                   </div>
@@ -197,11 +294,12 @@ export default function ProductModal({
             {/* Bottom Actions: Prominent WhatsApp Button & Wishlist */}
             <div>
               <div className="flex items-center gap-3">
-                {/* Primary WhatsApp Action (NO "Buy now" as instructed by user) */}
+                {/* Primary WhatsApp Action */}
                 <button
                   onClick={handleWhatsAppInquiry}
                   data-interactive-btn
                   className="flex-1 bg-[#25D366] hover:bg-[#20bd5a] active:scale-[0.99] text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all text-sm tracking-[var(--track-ui)] leading-[1.2] min-h-[44px]"
+                  aria-label={`Inquire about ${product.name} on WhatsApp`}
                 >
                   <img
                     src={whatsappIconBwTransparent}

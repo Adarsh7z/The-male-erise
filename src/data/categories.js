@@ -1,25 +1,23 @@
-import ocCover from '../assets/office/oc-1-cuban-linen.jpg';
-import kurtaCover from '../assets/kurtas/kurta-1-ivory-silk.jpg';
 import blazerCover from '../assets/blazers/blazer-1-navy-notch.jpg';
 
 export const CATEGORIES = [
   {
-    id: "office-casuals",
-    name: "Office casuals",
-    shortName: "Office Casuals",
-    slug: "office-casuals",
-    itemCount: 6,
-    image: ocCover,
-    description: "Refined linen button-downs, Cuban collars, smart pleated trousers & relaxed office-ready essentials."
+    id: "shirts",
+    name: "Shirts",
+    shortName: "Shirts",
+    slug: "shirts",
+    itemCount: 3,
+    image: "/images/products/beige-maroon-shirt-1.jpg",
+    description: "Tailored luxury shirts, handcrafted collar styles, artisanal textured weaves & premium everyday shirting."
   },
   {
-    id: "kurta-pyjama",
-    name: "Kurta-pyjama",
-    shortName: "Kurta-Pyjama",
-    slug: "kurta-pyjama",
-    itemCount: 6,
-    image: kurtaCover,
-    description: "Artisanal handwoven silk kurtas, tailored pyjamas, and contemporary festive ethnic silhouettes for men."
+    id: "kurtas",
+    name: "Kurtas",
+    shortName: "Kurtas",
+    slug: "kurtas",
+    itemCount: 4,
+    image: "/images/products/blue-kurta-1.jpg",
+    description: "Artisanal handwoven silk kurtas, tailored ethnic silhouettes, and contemporary festive wear for men."
   },
   {
     id: "blazers",

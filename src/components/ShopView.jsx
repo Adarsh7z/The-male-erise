@@ -11,15 +11,23 @@ export default function ShopView({
   onToggleWishlist,
   onQuickView
 }) {
+  const normalizeCategorySlug = (slug) => {
+    if (!slug) return null;
+    const lower = slug.toLowerCase();
+    if (lower === 'coats') return 'blazers';
+    if (lower === 'office-casuals' || lower === 'office') return 'shirts';
+    if (lower === 'kurta-pyjama' || lower === 'kurta') return 'kurtas';
+    return lower;
+  };
+
   const [productSearch, setProductSearch] = useState('');
   const [selectedCategories, setSelectedCategories] = useState(
-    selectedCategorySlug ? [selectedCategorySlug === 'coats' ? 'blazers' : selectedCategorySlug] : []
+    selectedCategorySlug ? [normalizeCategorySlug(selectedCategorySlug)] : []
   );
 
   React.useEffect(() => {
     if (selectedCategorySlug) {
-      const normalized = selectedCategorySlug === 'coats' ? 'blazers' : selectedCategorySlug;
-      setSelectedCategories([normalized]);
+      setSelectedCategories([normalizeCategorySlug(selectedCategorySlug)]);
     }
   }, [selectedCategorySlug]);
   const [selectedSizes, setSelectedSizes] = useState([]);
@@ -141,7 +149,7 @@ export default function ShopView({
             Catalog & Shop
           </h1>
           <p className="text-sm text-zinc-500 mt-0.5">
-            Showing {displayProducts.length} items across Office casuals, Kurta-pyjama & Blazers
+            Showing {displayProducts.length} items across Shirts, Kurtas & Blazers
           </p>
         </div>
       </div>
@@ -169,7 +177,7 @@ export default function ShopView({
               </button>
             </div>
 
-            {/* SECTIONS: Office casuals, Kurta-pyjama, Blazers */}
+            {/* SECTIONS: Shirts, Kurtas, Blazers */}
             <div>
               <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-900 mb-3">
                 SECTIONS

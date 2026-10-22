@@ -40,7 +40,7 @@ export default function SearchModal({ isOpen, onClose, onSelectProduct }) {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search office casuals, kurta-pyjama, blazers..."
+            placeholder="Search shirts, kurtas, blazers..."
             className="flex-1 text-sm sm:text-base outline-none text-zinc-900 placeholder:text-zinc-400 font-medium"
           />
           {searchTerm && (

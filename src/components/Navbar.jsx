@@ -226,7 +226,7 @@ export default function Navbar({
                   }}
                   className="block text-xs text-zinc-300 hover:text-white py-1 transition-colors"
                 >
-                  • Office casuals
+                  • Shirts
                 </button>
                 <button
                   onClick={() => {
@@ -235,7 +235,7 @@ export default function Navbar({
                   }}
                   className="block text-xs text-zinc-300 hover:text-white py-1 transition-colors"
                 >
-                  • Kurta-pyjama
+                  • Kurtas
                 </button>
                 <button
                   onClick={() => {

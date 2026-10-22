@@ -54,7 +54,7 @@ export default function CategoryView({ onSelectCategory }) {
           Shop by Category
         </h1>
         <p className="text-xs sm:text-sm text-zinc-600 max-w-md mx-auto mt-2 tracking-[var(--track-body)] leading-[1.5]">
-          Explore our exclusive 3 core menswear lines: Office casuals, Kurta-pyjama & Blazers.
+          Explore our exclusive 3 core menswear lines: Shirts, Kurtas & Blazers.
         </p>
       </div>
 

@@ -74,7 +74,7 @@ export default function Footer({ onNavigate }) {
             </div>
 
             <p className="text-xs text-zinc-400 leading-relaxed max-w-sm">
-              Discover Male Order Erise: Luxury Office casuals, handcrafted Kurta-pyjama sets, and structured tailored Blazers designed with timeless sartorial precision.
+              Discover Male Order Erise: Luxury Shirts, handcrafted Kurtas, and structured tailored Blazers designed with timeless sartorial precision.
             </p>
 
             <div className="pt-1 flex flex-wrap items-center gap-2.5">
@@ -110,12 +110,12 @@ export default function Footer({ onNavigate }) {
             <ul className="space-y-2 text-xs text-zinc-400">
               <li>
                 <button onClick={() => onNavigate('shop')} className="hover:text-white transition-colors">
-                  Office casuals
+                  Shirts
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate('shop')} className="hover:text-white transition-colors">
-                  Kurta-pyjama
+                  Kurtas
                 </button>
               </li>
               <li>
@@ -155,7 +155,7 @@ export default function Footer({ onNavigate }) {
               VIP Notifications
             </h4>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Stay updated on new collection drops for Office casuals, festive kurtas and blazers.
+              Stay updated on new collection drops for shirts, festive kurtas and blazers.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-2">
               <div className="flex rounded-xl overflow-hidden border border-zinc-800 bg-zinc-950 focus-within:border-white/50 focus-within:ring-1 focus-within:ring-white/20">

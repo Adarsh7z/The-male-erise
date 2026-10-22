@@ -11,7 +11,7 @@ export default function TrendingCategories({ onSelectCategory, onNavigateToCateg
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef(null);
 
-  // We have 3 categories: Office casuals, Kurta-pyjama, Blazers
+  // We have 3 categories: Shirts, Kurtas, Blazers
   // On mobile: 2 cards per view, so max index is 1 (index 0 shows items 0,1; index 1 shows items 1,2)
   // On desktop: 3 cards fit side by side comfortably
   const maxMobileIndex = Math.max(0, CATEGORIES.length - 2);
