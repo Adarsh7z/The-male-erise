@@ -339,7 +339,7 @@ export default function ShopView({
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-3.5 sm:gap-6 items-stretch">
               {displayProducts.map((product) => (
                 <ProductCard
                   key={product.id}

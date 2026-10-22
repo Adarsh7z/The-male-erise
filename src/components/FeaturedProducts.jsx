@@ -112,9 +112,9 @@ export default function FeaturedProducts({
       </div>
 
       {/* 2-Column Product Grid on Mobile, 3-4 on Desktop (Matching Mobile-ui.mp4) */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6 items-stretch">
         {filteredProducts.map((product) => (
-          <div key={product.id} className="featured-product-card">
+          <div key={product.id} className="featured-product-card h-full">
             <ProductCard
               product={product}
               isWishlisted={wishlist.includes(product.id)}
