@@ -24,7 +24,7 @@ export const CATEGORIES = [
     name: "Blazers",
     shortName: "Blazers",
     slug: "blazers",
-    itemCount: 6,
+    itemCount: 5,
     image: blazerCover,
     description: "Tailored single-breasted notch lapel blazers, structured double-breasted jackets & luxury party blazers."
   }

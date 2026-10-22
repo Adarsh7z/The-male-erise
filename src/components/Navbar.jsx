@@ -49,17 +49,20 @@ export default function Navbar({
                 </svg>
               </label>
 
-              {/* White Square Badge Logo */}
+              {/* Circular White Brand Logo */}
               <button
                 onClick={() => handleNavClick('home')}
-                className="flex items-center gap-2.5 group text-left focus:outline-none"
+                className="flex items-center gap-2.5 sm:gap-3 group text-left focus:outline-none cursor-pointer"
                 aria-label="Male Order Erise Home"
               >
-                <div className="w-9 h-9 sm:w-11 sm:h-11 bg-white rounded-md sm:rounded-lg flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
-                  <span className="font-display font-bold text-black text-base sm:text-xl tracking-tighter">
-                    MO
-                  </span>
-                </div>
+                <img
+                  src="/logo-circle.png"
+                  srcSet="/logo-circle-1x.png 1x, /logo-circle-2x.png 2x, /logo-circle.png 3x"
+                  alt="Male Order Erise logo"
+                  width="52"
+                  height="52"
+                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-[50px] md:h-[50px] rounded-full object-contain shrink-0 shadow-sm ring-1 ring-white/10 group-hover:scale-105 transition-transform duration-300"
+                />
                 <div className="hidden sm:block">
                   <span className="block font-bold tracking-wider text-xs sm:text-sm text-white uppercase font-sans">
                     Male Order
@@ -168,13 +171,23 @@ export default function Navbar({
             <div>
               {/* Top Drawer Header with Brand Emblem & Close Button */}
               <div className="flex items-center justify-between pb-6 mb-6 border-b border-zinc-800">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center">
-                    <span className="font-display font-bold text-black text-sm">MO</span>
+                <div className="flex items-center gap-3">
+                  <img
+                    src="/logo-circle.png"
+                    srcSet="/logo-circle-1x.png 1x, /logo-circle-2x.png 2x"
+                    alt="Male Order Erise logo"
+                    width="40"
+                    height="40"
+                    className="w-10 h-10 rounded-full object-contain shrink-0 shadow-sm ring-1 ring-white/10"
+                  />
+                  <div>
+                    <span className="block text-xs font-bold uppercase tracking-wider text-white">
+                      Male Order
+                    </span>
+                    <span className="block text-[9px] tracking-widest text-zinc-400 uppercase">
+                      Erise Studio
+                    </span>
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-white">
-                    Male Order
-                  </span>
                 </div>
                 <button
                   onClick={() => setMobileMenuOpen(false)}

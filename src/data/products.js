@@ -1,6 +1,5 @@
 // Blazers Local High-Resolution Photography Assets (Untouched)
 import blazer1 from '../assets/blazers/blazer-1-navy-notch.jpg';
-import blazer2 from '../assets/blazers/blazer-2-charcoal-tweed.jpg';
 import blazer3 from '../assets/blazers/blazer-3-velvet-peak.jpg';
 import blazer4 from '../assets/blazers/blazer-4-sand-linen.jpg';
 import blazer5 from '../assets/blazers/blazer-5-savile-double-breasted.jpg';
@@ -191,24 +190,6 @@ export const PRODUCTS = [
     description: "Signature single-breasted navy blazer tailored from fine virgin wool with classic notch lapels, flap pockets, and mother-of-pearl buttons.",
     fabric: "Super 120s Italian Virgin Wool",
     care: "Specialist dry clean only."
-  },
-  {
-    id: "moe-bz-02",
-    name: "Charcoal Herringbone Tweed Blazer",
-    category: "Blazers",
-    categorySlug: "blazers",
-    price: 4799,
-    originalPrice: 11299,
-    discount: "58% OFF",
-    sizes: ["38", "40", "42", "44"],
-    rating: 4.8,
-    reviewsCount: 39,
-    isFeatured: true,
-    badge: "WINTER WARMTH",
-    images: [blazer2],
-    description: "Heritage winter tweed blazer woven in a rich charcoal herringbone pattern. Features structured shoulders, notch lapels, ticket pocket, and flap pockets.",
-    fabric: "100% Shetland Pure New Wool Tweed",
-    care: "Dry clean only."
   },
   {
     id: "moe-bz-03",

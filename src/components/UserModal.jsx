@@ -19,9 +19,14 @@ export default function UserModal({ isOpen, onClose }) {
         </button>
 
         <div className="text-center mb-6">
-          <div className="w-14 h-14 bg-black text-white rounded-2xl flex items-center justify-center mx-auto mb-3 font-display font-bold text-xl shadow-md">
-            MO
-          </div>
+          <img
+            src="/logo-circle.png"
+            srcSet="/logo-circle-1x.png 1x, /logo-circle-2x.png 2x"
+            alt="Male Order Erise logo"
+            width="64"
+            height="64"
+            className="w-16 h-16 rounded-full object-contain mx-auto mb-3 shadow-md ring-1 ring-black/10"
+          />
           <h3 className="text-lg font-bold text-zinc-900 tracking-[var(--track-display)]">
             Male Order Erise Concierge
           </h3>

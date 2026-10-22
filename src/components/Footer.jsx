@@ -34,8 +34,14 @@ export default function Footer({ onNavigate }) {
           </div>
 
           <div className="flex items-center gap-4 justify-center sm:justify-start">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl card-gloss-black flex items-center justify-center text-white shrink-0 shadow-sm">
-              <span className="font-display font-bold text-sm text-white">MO</span>
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden shrink-0 shadow-sm ring-1 ring-white/10">
+              <img
+                src="/logo-circle-1x.png"
+                alt="Male Order Erise logo"
+                width="48"
+                height="48"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-white">Handcrafted Tailoring</h4>
@@ -58,16 +64,21 @@ export default function Footer({ onNavigate }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 pb-10 border-b border-zinc-800">
           
           {/* Column 1: Brand Info */}
-          <div className="lg:col-span-2 space-y-3.5">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-lg flex items-center justify-center">
-                <span className="font-display font-bold text-black text-lg tracking-tighter">MO</span>
-              </div>
+          <div className="lg:col-span-2 space-y-4">
+            <div className="flex items-center gap-4">
+              <img
+                src="/logo-circle.png"
+                srcSet="/logo-circle-2x.png 2x, /logo-circle.png 3x"
+                alt="Male Order Erise logo"
+                width="84"
+                height="84"
+                className="w-18 h-18 sm:w-20 sm:h-20 lg:w-[88px] lg:h-[88px] rounded-full object-contain shrink-0 shadow-md ring-1 ring-white/10 hover:scale-105 transition-transform duration-300"
+              />
               <div>
-                <span className="block font-bold tracking-wider text-sm text-white uppercase font-sans">
+                <span className="block font-bold tracking-wider text-sm sm:text-base text-white uppercase font-sans">
                   Male Order Erise
                 </span>
-                <span className="block text-[10px] tracking-widest text-zinc-400 uppercase">
+                <span className="block text-[10px] sm:text-xs tracking-widest text-zinc-400 uppercase">
                   Apparel & Clothing • Bespoke Tailoring
                 </span>
               </div>
