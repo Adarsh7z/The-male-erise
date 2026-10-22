@@ -13,7 +13,7 @@ import SearchModal from './components/SearchModal';
 import UserModal from './components/UserModal';
 import Footer from './components/Footer';
 import FloatingCTAs from './components/FloatingCTAs';
-import { BRAND_INFO } from './data/products';
+import { PRODUCTS, BRAND_INFO } from './data/products';
 import whatsappIconBwTransparent from './assets/whatsapp-icon-bw-transparent.png';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import gsap from 'gsap';
@@ -22,19 +22,49 @@ import { useGSAPInteractions } from './hooks/useGSAPInteractions';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const normalizeWishlistData = (data) => {
+  if (!Array.isArray(data)) return [];
+  return data
+    .map((item) => {
+      if (typeof item === 'string') {
+        const prod = PRODUCTS.find((p) => p.id === item);
+        return {
+          id: item,
+          size: prod?.sizes?.[0] || 'M',
+        };
+      }
+      if (item && typeof item === 'object' && item.id) {
+        const prod = PRODUCTS.find((p) => p.id === item.id);
+        const validSize =
+          item.size && (!prod || prod.sizes?.includes(item.size))
+            ? item.size
+            : prod?.sizes?.[0] || 'M';
+        return {
+          id: item.id,
+          size: validSize,
+        };
+      }
+      return null;
+    })
+    .filter(Boolean);
+};
+
 export default function App() {
   useGSAPInteractions();
   const [activeTab, setActiveTab] = useState('home'); // 'home' | 'shop' | 'category'
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [selectedCategorySlug, setSelectedCategorySlug] = useState(null);
   
-  // Persisted Wishlist
+  // Persisted Wishlist: [{ id: string, size: string }]
   const [wishlist, setWishlist] = useState(() => {
     try {
       const saved = localStorage.getItem('moe_wishlist');
-      return saved ? JSON.parse(saved) : ['moe-sh-01', 'moe-ku-01'];
+      if (saved) {
+        return normalizeWishlistData(JSON.parse(saved));
+      }
+      return normalizeWishlistData(['moe-sh-01', 'moe-ku-01']);
     } catch {
-      return ['moe-sh-01', 'moe-ku-01'];
+      return normalizeWishlistData(['moe-sh-01', 'moe-ku-01']);
     }
   });
 
@@ -81,11 +111,27 @@ export default function App() {
     }
   }, []);
 
-  const toggleWishlist = (productId) => {
+  const toggleWishlist = (productId, optionalSize) => {
+    setWishlist((prev) => {
+      const exists = prev.some((item) => (typeof item === 'string' ? item : item.id) === productId);
+      if (exists) {
+        return prev.filter((item) => (typeof item === 'string' ? item : item.id) !== productId);
+      }
+      const prod = PRODUCTS.find((p) => p.id === productId);
+      const chosenSize = optionalSize || prod?.sizes?.[0] || 'M';
+      return [...prev, { id: productId, size: chosenSize }];
+    });
+  };
+
+  const updateWishlistSize = (productId, newSize) => {
     setWishlist((prev) =>
-      prev.includes(productId)
-        ? prev.filter((id) => id !== productId)
-        : [...prev, productId]
+      prev.map((item) => {
+        const itemId = typeof item === 'string' ? item : item.id;
+        if (itemId === productId) {
+          return { id: productId, size: newSize };
+        }
+        return typeof item === 'string' ? { id: item, size: 'M' } : item;
+      })
     );
   };
 
@@ -125,6 +171,7 @@ export default function App() {
         setActiveTab={setActiveTab}
         isCategoryOpen={isCategoryOpen}
         setIsCategoryOpen={setIsCategoryOpen}
+        wishlistCount={wishlist.length}
         onOpenWishlist={() => setIsWishlistOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
         onOpenUser={() => setIsUserOpen(true)}
@@ -241,18 +288,29 @@ export default function App() {
       <FloatingCTAs />
 
       {/* 7. Interactive Modals */}
-      <ProductModal
-        product={quickViewProduct}
-        onClose={() => setQuickViewProduct(null)}
-        isWishlisted={quickViewProduct ? wishlist.includes(quickViewProduct.id) : false}
-        onToggleWishlist={toggleWishlist}
-      />
+      {(() => {
+        const currentWishlistItem = quickViewProduct
+          ? wishlist.find((item) => (typeof item === 'string' ? item : item.id) === quickViewProduct.id)
+          : null;
+        return (
+          <ProductModal
+            product={quickViewProduct}
+            onClose={() => setQuickViewProduct(null)}
+            isWishlisted={Boolean(currentWishlistItem)}
+            savedSize={currentWishlistItem ? (typeof currentWishlistItem === 'object' ? currentWishlistItem.size : null) : null}
+            onToggleWishlist={toggleWishlist}
+            onUpdateWishlistSize={updateWishlistSize}
+          />
+        );
+      })()}
 
       <WishlistModal
         isOpen={isWishlistOpen}
         onClose={() => setIsWishlistOpen(false)}
+        wishlist={wishlist}
         wishlistIds={wishlist}
         onRemoveFromWishlist={toggleWishlist}
+        onUpdateWishlistSize={updateWishlistSize}
         onOpenProduct={(product) => setQuickViewProduct(product)}
       />
 

@@ -1,26 +1,64 @@
 import React from 'react';
-import { X, Trash2, Heart, ArrowRight } from 'lucide-react';
+import { X, Trash2, Heart } from 'lucide-react';
 import { PRODUCTS, BRAND_INFO } from '../data/products';
 import whatsappIconBwTransparent from '../assets/whatsapp-icon-bw-transparent.png';
 
 export default function WishlistModal({
   isOpen,
   onClose,
+  wishlist = [],
   wishlistIds,
   onRemoveFromWishlist,
+  onUpdateWishlistSize,
   onOpenProduct
 }) {
   if (!isOpen) return null;
 
-  const wishlistedProducts = PRODUCTS.filter((p) => wishlistIds.includes(p.id));
+  // Resolve items while preserving the order added by the user
+  const rawItems = wishlist && wishlist.length > 0 ? wishlist : (wishlistIds || []);
+  const resolvedItems = rawItems
+    .map((entry) => {
+      const id = typeof entry === 'string' ? entry : entry?.id;
+      const product = PRODUCTS.find((p) => p.id === id);
+      if (!product) return null;
+      const size =
+        typeof entry === 'object' && entry?.size
+          ? entry.size
+          : (product.sizes?.[0] || 'M');
+      return { product, size };
+    })
+    .filter(Boolean);
 
   const handleInquiryAll = () => {
-    if (wishlistedProducts.length === 0) return;
-    const names = wishlistedProducts.map((p) => `• ${p.name} (₹${p.price.toLocaleString()})`).join('\n');
-    const message = encodeURIComponent(
-      `Hi, I'd like to enquire about these saved items from ${BRAND_INFO.name}:\n${names}\n\nAre they available?`
+    if (resolvedItems.length === 0) return;
+
+    // Single item inquiry follows the exact single-product popup format
+    if (resolvedItems.length === 1) {
+      const { product, size } = resolvedItems[0];
+      const message = encodeURIComponent(
+        `Hi, I'd like to enquire about ${product.name} (₹${product.price.toLocaleString()}, Size: ${size}) from ${BRAND_INFO.name}. Is it available?`
+      );
+      window.open(`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    // Multi-item inquiry format
+    const standardLines = resolvedItems.map(
+      (item, index) => `${index + 1}. ${item.product.name} (₹${item.product.price.toLocaleString()}, Size: ${item.size})`
     );
-    window.open(`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${message}`, '_blank', 'noopener,noreferrer');
+    let messageText = `Hi, I'd like to enquire about these saved items from ${BRAND_INFO.name}:\n${standardLines.join('\n')}\n\nAre they available?`;
+    let encodedUrl = `https://wa.me/${BRAND_INFO.whatsappNumber}?text=${encodeURIComponent(messageText)}`;
+
+    // Safe URL length guard (< 2000 chars fallback to compact format)
+    if (encodedUrl.length > 2000) {
+      const compactLines = resolvedItems.map(
+        (item, index) => `${index + 1}. ${item.product.name} | Size: ${item.size}`
+      );
+      messageText = `Hi, I'd like to enquire about these saved items from ${BRAND_INFO.name}:\n${compactLines.join('\n')}\n\nAre they available?`;
+      encodedUrl = `https://wa.me/${BRAND_INFO.whatsappNumber}?text=${encodeURIComponent(messageText)}`;
+    }
+
+    window.open(encodedUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -34,7 +72,7 @@ export default function WishlistModal({
           <div className="flex items-center gap-2">
             <Heart className="w-5 h-5 text-red-500 fill-current" />
             <h2 className="text-base font-bold text-zinc-900 tracking-[var(--track-display)]">
-              My Saved Wishlist ({wishlistedProducts.length})
+              My Saved Wishlist ({resolvedItems.length})
             </h2>
           </div>
           <button
@@ -48,14 +86,14 @@ export default function WishlistModal({
 
         {/* Content List */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
-          {wishlistedProducts.length === 0 ? (
+          {resolvedItems.length === 0 ? (
             <div className="py-20 text-center space-y-3">
               <div className="w-16 h-16 rounded-full bg-zinc-100 text-zinc-400 flex items-center justify-center mx-auto">
                 <Heart className="w-8 h-8 stroke-[1.5]" />
               </div>
               <p className="text-base font-semibold text-zinc-800">Your wishlist is empty</p>
               <p className="text-xs text-zinc-500 max-w-xs mx-auto">
-                Explore the Male Order Erise collection and tap the heart icon on any piece you love.
+                Heart a few products to send one inquiry, or explore the Male Order Erise collection and tap the heart icon on any piece you love.
               </p>
               <button
                 onClick={onClose}
@@ -65,7 +103,7 @@ export default function WishlistModal({
               </button>
             </div>
           ) : (
-            wishlistedProducts.map((prod) => (
+            resolvedItems.map(({ product: prod, size: currentSize }) => (
               <div
                 key={prod.id}
                 className="flex gap-3 bg-zinc-50 border border-zinc-200/80 rounded-2xl p-3 hover:border-zinc-300 transition-colors"
@@ -77,11 +115,11 @@ export default function WishlistModal({
                     onClose();
                     onOpenProduct(prod);
                   }}
-                  className="w-20 h-20 object-cover rounded-xl cursor-pointer bg-white"
+                  className="w-20 h-20 object-cover rounded-xl cursor-pointer bg-white shrink-0"
                 />
-                <div className="flex-1 flex flex-col justify-between">
+                <div className="flex-1 flex flex-col justify-between min-w-0">
                   <div>
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start justify-between gap-1">
                       <h4
                         onClick={() => {
                           onClose();
@@ -92,13 +130,15 @@ export default function WishlistModal({
                         {prod.name}
                       </h4>
                       <button
+                        type="button"
                         onClick={() => onRemoveFromWishlist(prod.id)}
-                        className="text-zinc-400 hover:text-red-500 p-1"
+                        className="text-zinc-400 hover:text-red-500 p-1 shrink-0"
                         title="Remove from wishlist"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
+
                     <div className="flex items-baseline gap-2 mt-1">
                       <span className="text-xs font-bold text-zinc-900">
                         ₹{prod.price.toLocaleString()}
@@ -107,16 +147,36 @@ export default function WishlistModal({
                         ₹{prod.originalPrice.toLocaleString()}
                       </span>
                     </div>
+
+                    {/* Sizing Selector Chips */}
+                    <div className="flex items-center gap-1.5 flex-wrap mt-2">
+                      <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider mr-0.5">Size:</span>
+                      {prod.sizes?.map((sz) => (
+                        <button
+                          key={sz}
+                          type="button"
+                          onClick={() => onUpdateWishlistSize?.(prod.id, sz)}
+                          className={`px-2 py-0.5 rounded-md text-[11px] font-bold border transition-all ${
+                            currentSize === sz
+                              ? 'bg-zinc-900 text-white border-zinc-900 shadow-xs'
+                              : 'bg-white text-zinc-700 border-zinc-200 hover:border-zinc-400'
+                          }`}
+                          aria-label={`Select size ${sz} for ${prod.name}`}
+                        >
+                          {sz}
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Individual WhatsApp button */}
                   <a
                     href={`https://wa.me/${BRAND_INFO.whatsappNumber}?text=${encodeURIComponent(
-                      `Hi, I'd like to enquire about ${prod.name} (₹${prod.price.toLocaleString()}) from ${BRAND_INFO.name}. Is it available?`
+                      `Hi, I'd like to enquire about ${prod.name} (₹${prod.price.toLocaleString()}, Size: ${currentSize}) from ${BRAND_INFO.name}. Is it available?`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 text-[11px] font-semibold text-white bg-[#25D366] hover:bg-[#20bd5a] py-1.5 px-3 rounded-lg mt-2 shadow-xs"
+                    className="inline-flex items-center justify-center gap-1.5 text-[11px] font-semibold text-white bg-[#25D366] hover:bg-[#20bd5a] py-1.5 px-3 rounded-lg mt-2.5 shadow-xs"
                   >
                     <img
                       src={whatsappIconBwTransparent}
@@ -136,11 +196,12 @@ export default function WishlistModal({
         </div>
 
         {/* Footer actions */}
-        {wishlistedProducts.length > 0 && (
+        {resolvedItems.length > 0 && (
           <div className="p-4 border-t border-zinc-200 bg-zinc-50 space-y-2">
             <button
+              type="button"
               onClick={handleInquiryAll}
-              className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all"
+              className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
             >
               <img
                 src={whatsappIconBwTransparent}
@@ -151,7 +212,7 @@ export default function WishlistModal({
                 height="26"
                 className="wa-icon-img shrink-0"
               />
-              <span>Inquire All Saved Items on WhatsApp</span>
+              <span>Inquire All Saved Items on WhatsApp ({resolvedItems.length})</span>
             </button>
           </div>
         )}

@@ -10,10 +10,12 @@ export default function ProductModal({
   product,
   onClose,
   isWishlisted,
-  onToggleWishlist
+  savedSize,
+  onToggleWishlist,
+  onUpdateWishlistSize
 }) {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(product?.sizes ? product.sizes[0] : 'M');
+  const [selectedSize, setSelectedSize] = useState(savedSize || (product?.sizes ? product.sizes[0] : 'M'));
   const [showSizeGuide, setShowSizeGuide] = useState(false);
   const touchStartX = useRef(null);
 
@@ -23,7 +25,7 @@ export default function ProductModal({
   useEffect(() => {
     if (product) {
       setSelectedImageIndex(0);
-      setSelectedSize(product.sizes?.[0] || 'M');
+      setSelectedSize(savedSize || product.sizes?.[0] || 'M');
     }
 
     const handleKeyDown = (e) => {
@@ -38,7 +40,7 @@ export default function ProductModal({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [product, onClose, imagesCount]);
+  }, [product, savedSize, onClose, imagesCount]);
 
   if (!product) return null;
 
@@ -75,6 +77,13 @@ export default function ProductModal({
       }
     }
     touchStartX.current = null;
+  };
+
+  const handleSelectSize = (size) => {
+    setSelectedSize(size);
+    if (isWishlisted && onUpdateWishlistSize) {
+      onUpdateWishlistSize(product.id, size);
+    }
   };
 
   const handleWhatsAppInquiry = () => {
@@ -241,7 +250,8 @@ export default function ProductModal({
                   {product.sizes.map((size) => (
                     <button
                       key={size}
-                      onClick={() => setSelectedSize(size)}
+                      type="button"
+                      onClick={() => handleSelectSize(size)}
                       className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${
                         selectedSize === size
                           ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm scale-105'
@@ -315,7 +325,8 @@ export default function ProductModal({
 
                 {/* Wishlist toggle */}
                 <button
-                  onClick={() => onToggleWishlist(product.id)}
+                  type="button"
+                  onClick={() => onToggleWishlist(product.id, selectedSize)}
                   className={`p-3.5 border rounded-xl transition-all ${
                     isWishlisted
                       ? 'border-red-500 bg-red-50 text-red-600'

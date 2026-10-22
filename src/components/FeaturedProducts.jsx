@@ -117,7 +117,7 @@ export default function FeaturedProducts({
           <div key={product.id} className="featured-product-card h-full">
             <ProductCard
               product={product}
-              isWishlisted={wishlist.includes(product.id)}
+              isWishlisted={wishlist.some((item) => (typeof item === 'string' ? item : item.id) === product.id)}
               onToggleWishlist={onToggleWishlist}
               onQuickView={onQuickView}
             />

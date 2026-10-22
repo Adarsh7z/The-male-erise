@@ -344,7 +344,7 @@ export default function ShopView({
                 <ProductCard
                   key={product.id}
                   product={product}
-                  isWishlisted={wishlist.includes(product.id)}
+                  isWishlisted={wishlist.some((item) => (typeof item === 'string' ? item : item.id) === product.id)}
                   onToggleWishlist={onToggleWishlist}
                   onQuickView={onQuickView}
                 />

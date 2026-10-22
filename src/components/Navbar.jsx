@@ -7,6 +7,7 @@ export default function Navbar({
   setActiveTab,
   isCategoryOpen,
   setIsCategoryOpen,
+  wishlistCount = 0,
   onOpenWishlist,
   onOpenSearch,
   onOpenUser
@@ -141,15 +142,15 @@ export default function Navbar({
                 <User className="w-5 h-5 stroke-[1.75]" />
               </button>
 
-              {/* Shopping Bag with 0 Badge (Exactly matching Mobile Screenshot & Video) */}
+              {/* Shopping Bag with Wishlist Count Badge */}
               <button
                 onClick={onOpenWishlist}
                 className="p-1.5 sm:p-2 text-white hover:text-zinc-300 transition-colors relative focus:outline-none"
-                aria-label="Cart & Wishlist"
+                aria-label={`Cart & Wishlist (${wishlistCount})`}
               >
                 <ShoppingBag className="w-5 h-5 stroke-[1.75]" />
                 <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-transparent text-white text-[10px] sm:text-[11px] font-bold flex items-center justify-center">
-                  0
+                  {wishlistCount}
                 </span>
               </button>
             </div>
